@@ -17,13 +17,10 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          sudo su
           cd /var/www/html/RCB-frontend
           git config --global --add safe.directory /var/www/html/RCB-frontend
            git add .
            git commit -m "serversidechanges"
            git pull origin main
-           sudo yarn
-           export NODE_OPTIONS=--openssl-legacy-provider
-           sudo yarn
-           sudo ng build --prod
+           yarn
+           ng build --prod
