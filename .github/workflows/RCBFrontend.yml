@@ -4,7 +4,7 @@ on:
     branches: 
        - main
 
-       
+     
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,17 +17,11 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-          source ~/.bashrc
-          sudo nvm install 18.12.1
-          sudo npm install -g @angular/cli
-          sudo npm install -g @angular/cli@10
-          ng --version
           cd /var/www/html/RCB-frontend
           git config --global --add safe.directory /var/www/html/RCB-frontend
            sudo git add .
            sudo git commit -m "serversidechanges"
            sudo git pull origin main
-           sudo npm i --force
+           npm i --force
            sudo export NODE_OPTIONS=--openssl-legacy-provider
-           sudo ng build --prod
+           ng build --prod
