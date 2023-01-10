@@ -22,5 +22,7 @@ jobs:
            git add .
            git commit -m "serversidechanges"
            git pull origin main
-           yarn
-           yarn run build:prod
+           - run: npm install
+           - run: npm install -g @angular/cli > /dev/null
+           - run: ng build --prod
+           
