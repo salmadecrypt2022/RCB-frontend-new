@@ -2,16 +2,16 @@ name: deploy production UI
 
 on:
   push:
-    branches:
+    branches: 
       - main
-    paths:
-      - 'RCB-backend/**'
+    paths-ignore:
+      - 'RCB-frontend/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using ssh key
+    - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -22,7 +22,9 @@ jobs:
           cd /var/www/html/RCB-frontend/RCB-node
           pwd
           ls -la
-          git pull origin main
-          yarn 
+          git add .
+          git commit -m "serversideupdate"
+          git pull origin main 
+          yarn
           pm2 ls 
           pm2 restart all
