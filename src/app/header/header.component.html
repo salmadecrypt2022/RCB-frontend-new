@@ -1,0 +1,47 @@
+<header class="desktop">
+    <div class="container">
+      <nav id="top">
+        <div class="navbar-top">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="navbar-first-col">
+                <form class="navbar-form">
+                  <input type="text" placeholder="Search Packs">
+                  <button type="submit"><img src="../../assets/images/icon/Search-icon.png" alt=""></button>
+                </form>
+                <a class="nav-icon" href="#"><img src="../../assets/images/icon/icon-Notification.png" class="img-fluid" alt=""></a>
+                <a class="nav-icon" href="javascript:;"  data-bs-toggle="modal" data-bs-target="#Modal-sign-up" ><img src="../../assets/images/icon/icon-List.png" class="img-fluid" alt=""></a>
+              </div>
+                
+            </div>
+
+<!-- 
+            <div class="col-lg-6">
+              <div class="navbar-second-col">
+                <buttonclass="btn nav-btn"><img src="../../assets/images/icon/icon-upload.png" class="img-fluid" alt=""> Login</button>
+                <button data-bs-toggle="modal" data-bs-target="#Modal-sign-up" class="btn nav-btn-2"><img src="../../assets/images/icon/Search-icon.png" class="img-fluid" alt=""> Sign up</button>
+                
+              </div>
+              
+            </div> -->
+
+
+            <div class="col-lg-6">
+              <div class="navbar-second-col">
+                <button (click)="signinMetaMask()" *ngIf="showObj.show == 'signin'" class="btn nav-btn"><img
+                    src="../../assets/images/icon/icon-upload.png" class="img-fluid" alt=""> Login</button>
+                <button (click)="signupMetaMask()" *ngIf="showObj.show == 'signup'" class="btn nav-btn-2"><img
+                    src="../../assets/images/icon/Search-icon.png" class="img-fluid" alt=""> Sign up</button>
+                <button (click)="connectToMetaMask()" *ngIf="showObj.show == 'metamask'"
+                  class="btn nav-btn">Connect</button>
+  
+                <button class="btn nav-btn" (click)="onsignout()" *ngIf="showObj.show == 'profile'">Sign out</button>
+  
+              </div>
+  
+            </div>
+      </div>
+        </div>
+      </nav>
+    </div>
+  </header>

@@ -1,0 +1,1126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+    }
+
+    @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+    $u1: unit($min-vw);
+    $u2: unit($max-vw);
+    $u3: unit($min-font-size);
+    $u4: unit($max-font-size);
+
+    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+        & {
+        font-size: $min-font-size;
+        @media screen and (min-width: $min-vw) {
+            font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        }
+        @media screen and (min-width: $max-vw) {
+            font-size: $max-font-size;
+        }
+        }
+    }
+}
+
+$min_width: 320px; //IPHONE5
+$max_width: 1200px; //MAX BOOTSTRAP CONTAINER
+$min_font: 16px;
+$max_font: 24px;         
+
+$poppin: 'Poppins', sans-serif;
+$noto-san: 'Noto Sans', sans-serif;
+$dm-sans: 'DM Sans', sans-serif;
+$inter: 'Inter', sans-serif;
+
+@font-face{
+    font-family: 'Air';
+    src: url(../fonts/airstrike.ttf);
+}
+
+body{
+    background-color: #1B1B1B;
+    overflow-x: hidden;
+
+    &.menu-opened{
+        overflow: hidden;
+        position: relative;
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,.75);
+            content: "";
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+        }
+        .menu-wrapper{
+            left: 0;
+        }
+        .main-wrapper{
+            margin-left: 264px;
+            @media screen and (max-width: 1100px){ // 990px
+                margin-left: 0;
+            }
+        }
+        .mobile-nav-wrapper{
+            .left__part{
+                .hamburger{
+                    display: none;
+                }
+                .closed-menu{
+                    display: block;
+                }
+            }
+        }
+
+        // .main-wrapper{
+
+        // }
+    }
+    .mobile-nav-wrapper{
+        .left__part{
+            .hamburger{
+                display: block;
+            }
+            .closed-menu{
+                display: none;
+            }
+        }
+    }
+    
+}
+
+
+.menu-wrapper{
+    position: fixed;
+    background: #020306;
+    border-radius: 0px 0px 50px 0px;
+    width: 264px;
+    border: 5px solid #BBA55E;
+    border-top: 0px;
+    border-left: 0px;
+    padding: 1.5rem;
+    transition: all .3s ease;
+    height: 100vh;
+    @media screen and (max-width: 1100px){ // 990px
+        left: -100%;
+        width: 100%;
+        z-index: 5;
+        position: absolute;
+    }
+    max-width: 264px;
+    @media screen and (max-width:767px)
+    {
+        max-width: 100%;
+    }
+
+    .menu-button{
+        float: right;
+        background: transparent;
+            border: none;
+            &:active{
+                outline: none;
+            }
+        svg{
+            color: #fff;
+            font-size: 35px;
+            g{
+                stroke: #fff;
+            }
+        }
+
+        @media screen and (min-width: 1100px){ // 990px
+            display: none;
+            
+        }
+    }
+
+    .scrollble-rcb{
+        height: calc(100vh - (131px + 3.5rem) );
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .menu-list{
+        padding-left: 0;
+    }
+
+    .live-clock{
+        background-color: #ffffff;
+        padding: 5px;
+        border-radius: 15px;
+        // position: fixed;
+        // bottom: 0;
+        // width: 90%;
+
+        .first-live-clock{
+            display: flex;
+            flex-direction: row;
+            // padding: 0px;
+
+            .user-pic{
+                height: 41px;
+                width: 41px;
+                background: #E02834;
+                border-radius: 50%;
+                margin-right: 15px;
+            }
+
+            .upcoming-para-1{
+                font-family: $inter;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 29px;
+                display: flex;
+                align-items: center;
+                color: #0A1C2A;
+            }
+
+            .upcoming-para-2{
+                // color: white;
+                font-family: $inter;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 29px;
+                display: flex;
+                align-items: center;
+                color: #B5B7CA;
+            }
+        }
+        
+    }
+
+    li{
+        list-style: none;
+        margin-top: 1rem;
+        width: 100%;
+        padding: .9rem 0;
+        border-radius: 15px;
+
+        &.active{
+            background-color: #E02834;
+        }
+        @media screen and (max-width: 1100px){ 
+        }
+    }
+    .menu-link{
+        border-radius: 15px;
+        text-decoration: none;
+        background: transparent;
+        color: #fff;
+        img{
+            margin-left: 15px;
+            margin-right: 5px;
+            padding-bottom: 5px;
+        }
+
+        &.active{
+            border-radius: 15px;
+        text-decoration: none;
+        color: #fff;
+        
+        img{
+            margin-left: 15px;
+            margin-right: 5px;
+            padding-bottom: 5px;
+        }
+        }
+    }
+}
+
+.main-wrapper{
+    margin-left: 264px;
+    transition: all .3s ease;
+    @media screen and (max-width: 1100px){ // 990px
+        margin-left: 0;
+    }
+}
+
+header{
+
+    @media screen and (max-width: 1100px){ // 990px
+        display: none;
+    }
+
+    background: #0A101C;
+    nav{
+        
+        box-shadow: 0px 11px 35px rgba(0, 0, 0, 0.45);
+        .navbar-top{
+
+            .live-clock{
+                display: flex;
+                align-items: center;
+        
+                .first-live-clock{
+                    display: flex;
+                    flex-direction: row;
+                    // padding: 0px;
+        
+                    .user-pic{
+                        height: 41px;
+                        width: 41px;
+                        background: #FAFBFC;
+                        border-radius: 50%;
+                        margin-right: 15px;
+                    }
+        
+                    .upcoming-para-1{
+                        font-family: $inter;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 23px;
+                        display: flex;
+                        align-items: center;
+                        color: #FFFFFF;
+                    }
+        
+                    .upcoming-para-2{
+                        // color: white;
+                        font-family: $inter;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 29px;
+                        display: flex;
+                        align-items: center;
+                        color: #6a6a6a;
+                    }
+                }
+                
+            }
+
+            padding: 1rem 0rem;
+            .navbar-first-col{
+                display: flex;
+                .navbar-form{
+                    display: flex;
+                    position: relative;
+                    flex: 1;
+    
+                    input{
+                        background: #FAFBFC;
+                        border-radius: 15px;
+                        padding: 10px 15px 10px 15px;
+                        border: none;
+    
+                        width: 100%;
+    
+                        // @media screen and (min-width: 768px)
+                        //     {
+                        //         width: 60rem;
+                        //     }
+    
+                        &:focus{
+                            outline: none;
+                        }
+    
+                        &::placeholder{
+                            font-family: $inter;
+                            font-style: normal;
+                            font-weight: normal;
+                            font-size: 16px;
+                            line-height: 29px;
+                            display: flex;
+                            align-items: center;
+                            color: #B5B7CA;
+                        }
+                    }
+                    button{
+                        background: none;
+                        border: none;
+                        position: absolute;
+                        right: 10px;
+                        top: 50%;
+                        transform: translate(0,-50%);
+                    }
+                }
+    
+                .nav-icon{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 44px;
+                    width: 44px;
+                    border-radius: 50%;
+                    background-color: #FAFBFC;
+                    margin-left: 10px;
+                }
+            }
+    
+            .navbar-second-col{
+                display: flex;
+                justify-content: center;
+
+                @media screen and (min-width: 768px)
+                        {
+                            justify-content: end;
+                        }
+                .nav-btn{
+                    background: linear-gradient(180deg, #B0964C 0%, #E9E1A8 52.6%, #B0964C 100%);
+                    border-radius: 15px;
+                    padding: 12px 40px;
+                    margin-left: 10px;
+    
+                    margin-top: 1rem;
+    
+                    @media screen and (min-width: 768px)
+                        {
+                            padding: 12px 50px;
+                            margin-top: 0px;
+                        }
+                }
+    
+                .nav-btn-2{
+                    background: #0A101C;
+                    box-shadow: 0px 11px 35px rgba(0, 0, 0, 0.45);
+                    border: 2px solid #c2ad69;
+                    border-radius: 15px;
+                    color: #fff;
+                    padding: 12px 40px;
+                    margin-left: 10px;
+    
+                    margin-top: 1rem;
+    
+                    @media screen and (min-width: 768px)
+                        {
+                            padding: 12px 50px;
+                            margin-top: 0px;
+                        }
+                }
+            }
+        }
+    }
+}
+
+.mobile{
+
+    @media screen and (min-width: 1100px){ // 990px
+        display: none;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    .mobile-nav-wrapper{
+        display: flex;
+        align-items: center;
+        .left__part{
+            width: 35px;
+            svg{
+                color: #fff;
+                font-size: 35px;
+                g{
+                    stroke: #fff;
+                }
+            }
+        }
+        .right__part{
+            width: 35px;
+            text-align: center;
+        }
+        .middle__part{
+            flex: 1;
+        }
+
+        .menu-button{
+            background: transparent;
+            border: none;
+            &:active{
+                outline: none;
+            }
+        }
+    }
+
+    .nav-icon{
+        background-color: #fff;
+        padding: 6px;
+        border-radius: 50%;
+    }
+
+    .navbar-first-col{
+        display: flex;
+        .navbar-form{
+            display: flex;
+            position: relative;
+            flex: 1;
+
+            input{
+                background: #FAFBFC;
+                border-radius: 15px;
+                padding: 10px 15px 10px 15px;
+                border: none;
+
+                width: 100%;
+
+                &:focus{
+                    outline: none;
+                }
+
+                &::placeholder{
+                    font-family: $inter;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 29px;
+                    display: flex;
+                    align-items: center;
+                    color: #B5B7CA;
+                }
+            }
+            button{
+                &.fmobile
+                {
+                    background: none;
+                    border: none;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translate(0,-60%);
+                }                
+            }
+            
+        }
+    }
+}
+
+.my-wallet{
+    .wallet-heading{
+        font-family: $poppin;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 36px;
+        line-height: 72px;
+        color: #FFFFFF;
+    }
+
+    .curerent-balance{
+        background: url(../images/currebt-Balance.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 1rem;
+        border-radius: 15px;
+
+        h5{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 72px;
+            color: #FFFFFF;
+        }
+
+        h1{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 72px;
+            @include fluid-type($min_width, $max_width, 40px, 72px);
+            line-height: 72px;
+            text-align: right;
+            color: #FFFFFF;
+
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+
+            @media screen and (max-width: 767px){
+                padding-top: 4rem;
+                padding-bottom: 1rem;   
+            }
+        }
+    }
+
+    .add-funds-down{
+        display: none;
+        .para-heading{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            // line-height: 72px;
+            color: #FFFFFF;
+        }
+
+        .amount-input{
+            
+            form{
+                display: flex;
+                position: relative;
+                align-items: center;
+                input{
+                    background: #363636;
+                    border: 1px solid #7F7F7F;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    border: 1px solid #545454;
+                    width: 100%;
+                    box-sizing: border-box;
+                    border-radius: 10px;
+                    color: #fff;
+                    padding-left: 10px;
+                    padding: 8px;
+                    &:focus{
+                        outline: none;
+                        // border: none;
+                    }
+                }
+    
+                p{
+                    position: absolute;
+                    display: flex;
+                    font-family: $poppin;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    // line-height: 72px;
+                    color: #FFFFFF;
+
+                    margin-bottom: 0;
+
+                    right: 10px;
+                }
+            }
+
+        }
+
+        .add-funds-btn{
+            padding: 7.5px 44px;
+        }
+
+        .balance-para{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 9px;
+            line-height: 11px;
+            color: #FFFFFF;
+        }
+
+        .visa-card{
+            background: #2F2F2F;
+            box-shadow: 0px 0px 15px rgba(43, 62, 177, 0.25);
+            border-radius: 15px;
+
+            .visa-icons{
+                display: flex;
+                align-items: center;
+                .first-icon{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    
+                    font-size: 30px;
+                    color: #fff;
+                    height: 30px;
+                    width: 30px;
+                    background-color: #35BB84;
+                    border-radius: 50%;
+                    // padding: 10px;
+                    margin-left: 20px;
+                }
+
+                .second-icon{
+                    text-align: right;
+                    margin-left: auto;
+                    margin-right: 20px;
+                    svg{
+                        font-size: 80px;
+                    color: #fff;
+                    }
+                }
+            }
+
+            .visa-number{
+                .visa-num{
+                    display: flex;
+                    align-items: center;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 22px;
+                        line-height: 33px;
+                        color: #FFFFFF;
+                        padding-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 22px;
+                        line-height: 33px;
+                        color: #FFFFFF;
+                        padding-left: 20px;
+                    }
+                }
+            }
+
+            .card-details{
+                // margin-left: px;
+                display: flex;
+                align-items: center;
+
+                .avalible-funds{
+                    text-align: start;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+
+                .expires{
+                    margin-left: auto;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+
+                .cvv{
+                    margin-right: 20px;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+                
+            }
+        }
+
+        .connect-wallet{
+            display: flex;
+            background: linear-gradient(180deg, #B0964C 0%, #E9E1A8 52.08%, #B0964C 100%);
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            // line-height: 72px;
+            color: #0E0E0E;
+            text-align: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+        }
+        @media screen and (max-width: 995px){
+            display: block;
+        }
+    }
+
+    .add-funds{
+        .para-heading{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            // line-height: 72px;
+            color: #FFFFFF;
+        }
+
+        .amount-input{
+            
+            form{
+                display: flex;
+                position: relative;
+                align-items: center;
+                input{
+                    background: #363636;
+                    border: 1px solid #7F7F7F;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    border: 1px solid #545454;
+                    width: 100%;
+                    box-sizing: border-box;
+                    border-radius: 10px;
+                    color: #fff;
+                    padding-left: 10px;
+                    padding: 8px;
+                    &:focus{
+                        outline: none;
+                        // border: none;
+                    }
+                }
+    
+                p{
+                    position: absolute;
+                    display: flex;
+                    font-family: $poppin;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    // line-height: 72px;
+                    color: #FFFFFF;
+
+                    margin-bottom: 0;
+
+                    right: 10px;
+                }
+            }
+
+        }
+
+        .add-funds-btn{
+            padding: 7.5px 44px;
+        }
+
+        .balance-para{
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 9px;
+            line-height: 11px;
+            color: #FFFFFF;
+        }
+
+        .visa-card{
+            background: #2F2F2F;
+            box-shadow: 0px 0px 15px rgba(43, 62, 177, 0.25);
+            border-radius: 15px;
+
+            .visa-icons{
+                display: flex;
+                align-items: center;
+                .first-icon{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    
+                    font-size: 30px;
+                    color: #fff;
+                    height: 30px;
+                    width: 30px;
+                    background-color: #35BB84;
+                    border-radius: 50%;
+                    // padding: 10px;
+                    margin-left: 20px;
+                }
+
+                .second-icon{
+                    text-align: right;
+                    margin-left: auto;
+                    margin-right: 20px;
+                    svg{
+                        font-size: 80px;
+                    color: #fff;
+                    }
+                }
+            }
+
+            .visa-number{
+                .visa-num{
+                    display: flex;
+                    align-items: center;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 22px;
+                        line-height: 33px;
+                        color: #FFFFFF;
+                        padding-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 22px;
+                        line-height: 33px;
+                        color: #FFFFFF;
+                        padding-left: 20px;
+                    }
+                }
+            }
+
+            .card-details{
+                // margin-left: px;
+                display: flex;
+                align-items: center;
+
+                .avalible-funds{
+                    text-align: start;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+
+                .expires{
+                    margin-left: auto;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+
+                .cvv{
+                    margin-right: 20px;
+                    .first-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        text-transform: uppercase;
+                        color: #FFFFFF;
+                        mix-blend-mode: normal;
+                        opacity: 0.6;
+    
+                        margin-left: 20px;
+                    }
+    
+                    .second-para{
+                        font-family: $poppin;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #FFFFFF;
+    
+                        margin-left: 20px;
+                    }
+                }
+                
+            }
+        }
+
+        .connect-wallet{
+            display: flex;
+            background: linear-gradient(180deg, #B0964C 0%, #E9E1A8 52.08%, #B0964C 100%);
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-family: $poppin;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            // line-height: 72px;
+            color: #0E0E0E;
+            text-align: center;
+            width: 100%;
+            justify-content: center;
+            padding: 10px;
+        }
+        @media screen and (max-width: 995px){
+            display: none;
+        }
+    }
+
+    .latest-transitions{
+
+        .first-block{
+            display: flex;
+            align-items: center;
+            p{
+                font-family: $poppin;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 22px;
+                line-height: 33px;
+                color: #FFFFFF;
+                margin-bottom: 0;
+
+            }
+
+            a{
+                margin-left: auto;
+                text-decoration: none;
+
+                background: linear-gradient(180deg, #B0964C 0%, #E9E1A8 45.31%, #B0964C 100%);
+                border-radius: 10px;
+
+                color: #000000;
+
+                padding: 10px 14px;
+            }
+        }
+
+        .transaction-table{
+            .dot{
+                color: #11C462;
+                font-size: 25px;
+                background-color: rgba(17, 196, 98, 0.2);
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            .table-text{
+                font-family: $poppin;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                @include fluid-type($min_width, $max_width, 10px, 15px);
+                line-height: 22px;
+                color: #FFFFFF;
+            }
+
+            .table-text-red{
+                font-family: $poppin;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 22px;
+                color: #FF3131;
+            }
+
+            .table-text-green{
+                font-family: $poppin;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                
+                line-height: 22px;
+                color: #11C462;
+            }
+
+            .table-border{
+                border-bottom: 2px solid #fff;
+            }
+
+            .table-dark{
+                --bs-table-bg: #1b1b1b;
+            }
+
+            .table-text-icon{
+                button{
+                    background: transparent;
+                    border: none;
+                    svg{
+                        color: #85899F;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.gold-btn-a{
+    background: linear-gradient(180deg, #B0964C 0%, #E9E1A8 49.48%, #B0964C 100%);
+    border-radius: 5px;
+    text-decoration: none;
+    
+
+    font-family: $poppin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 72px;
+    color: #343434;
+}
