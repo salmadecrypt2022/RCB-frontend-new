@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- xhtml/index.html08:17:22 -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Categories | RCB</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="/assets/images/favicon/favicon.ico">
+
+    <!-- TODO: Check if this is required or not! -->
+    <link rel="stylesheet" href="../assets/vendor/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/vendor/datatables/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <link href="../assets/css/admin-style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!-- Include Header -->
+        <%- include('header'); -%>
+
+        <!-- Include Sidebar -->
+        <%- include('sidebar'); -%>
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Categories</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="userTable" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Max Per Address</th>
+                                                <th>Private/ Public</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="userList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--**********************************
+            Content body end
+        ***********************************-->
+
+    <!--**********************************
+            Footer start
+        ***********************************-->
+    
+    <%- include('footer'); -%>
+    <div class="modal fade show" id="createCat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+                <a href="#" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span class="iconify text-brick-red rounded-circle" data-icon="carbon:close-filled" data-inline="false"
+                        style="background-color: #fff;" data-width="20" data-height="20"></span>
+                </a>
+                <div class="modal-body">
+                    <div class="content-sec">
+                        <div class="row">
+                            <div class="col">
+                                <img src="../assets/images/RCB-logo.png" class="img-fluid mx-auto mb-4 mt-4 d-table" />
+                                <h6 class="font-family-infra-semibold text-capitalize text-center mb-0">Create Category</h6>
+                            </div>
+                        </div>
+                        <div class="row align-items-center bg-light-purple pt-3 pb-3 mb-4 mt-4">
+                            <div class="col-md-4">
+                                <h5 class="font-family-bs-regular text-capitalize mb-0 text-center text-md-left">Earnings
+                                </h5>
+                            </div>
+                            <!-- <div class="col-md-8">
+                                <p class="font-family-bs-semibold earning-sum mb-0 text-center text-md-right">
+                                    <span id="txtRedeemablePoints"></span>
+                                    BNB
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="row text-center">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="starttime" id="starttime"
+                                    placeholder="Start time (secs)">
+                                <label for="statrt" id="lblstatrt" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="endtime" id="endtime"
+                                    placeholder="End time (secs)">
+                                <label for="Endtime" id="lblEndtime" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="maxPerAddress" id="maxPerAddress"
+                                    placeholder="Max per address">
+                                <label for="MaxPerAddress" id="lblMaxPerAddress" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="categoryTokencap" id="categoryTokencap"
+                                    placeholder="Total supply">
+                                <label for="CategoryTokencap" id="lblCategoryTokencap" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col bas-form" style="padding: 0;">
+                                <!-- <input class="form-control" type="number" name="categoryTokencap" id="categoryTokencap"
+                                    placeholder="Total supply"> -->
+                                    <select  class="form-control" type="number" name="category_type" id="category_type">
+                                        <option value="">Select type</option>
+                                        <option value="public">Public</option>
+                                        <option value="private">Private</option>
+
+                                      </select>
+                                <label for="Type" id="lblType" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <button class="btn btn-primary btn-peach with-icon mx-auto" id="btnRedeem">
+                                    <span>Create</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+
+    <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../assets/js/custom.min.js"></script>
+    <script src="../assets/js/deznav-init.js"></script>
+    <script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/datatables/js/dataTables.responsive.min.js"></script>
+
+    <script src="../Admin/js/categories.js"></script>
+
+
+</body>
+
+<!-- xhtml/index.html08:18:50 -->
+
+</html>
