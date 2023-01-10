@@ -28,6 +28,6 @@ jobs:
            sudo git add .
            sudo git commit -m "serversidechanges"
            git pull origin main
-           npm i --force
+           sudo npm i --force
            export NODE_OPTIONS=--openssl-legacy-provider
            ng build --prod
