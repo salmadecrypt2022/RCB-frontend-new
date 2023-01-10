@@ -1,0 +1,33 @@
+name: deploy on ec2
+on:
+  push:
+    branches: 
+       - main
+
+       
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+          source ~/.bashrc
+          nvm install 18.12.1
+          npm install -g @angular/cli
+          npm install -g @angular/cli@10
+          ng --version
+          cd /var/www/html/RCB-frontend
+          git config --global --add safe.directory /var/www/html/RCB-frontend
+           sudo git add .
+           sudo git commit -m "serversidechanges"
+           git pull origin main
+           npm i --force
+           export NODE_OPTIONS=--openssl-legacy-provider
+           ng build --prod
