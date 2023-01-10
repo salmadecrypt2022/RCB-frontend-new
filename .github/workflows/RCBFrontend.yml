@@ -23,4 +23,4 @@ jobs:
            git commit -m "serversidechanges"
            git pull origin main
            yarn
-           ng build --prod
+           yarn run build:prod
