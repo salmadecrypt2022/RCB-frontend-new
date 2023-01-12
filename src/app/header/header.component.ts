@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   async ngOnInit() {
 
     this.type = 'hide';
-    this.spinner.show();
+    //this.spinner.show();
     const that = this;
     this.showObj.wallet_address = await this.apiService.export();
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
