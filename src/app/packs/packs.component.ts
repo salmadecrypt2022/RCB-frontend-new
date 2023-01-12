@@ -44,7 +44,7 @@ export class PacksComponent implements OnInit {
     this._script.loadScripts("app-packs", scripts).then(function () {
 
     })
-
+    this.getActiveCategory();
     this.showObj.wallet_address = await this.apiService.export();
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
 
@@ -54,13 +54,13 @@ export class PacksComponent implements OnInit {
 
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
       } else {
-        this.toaster.warning('Please Signin / Signup first.', 'Attention!')
+        //this.toaster.warning('Please Signin / Signup first.', 'Attention!')
         // this.router.navigate([''])
       }
-      this.getActiveCategory();
+     
 
     } else {
-      this.toaster.warning('Please Connect wallet first.', 'Attention!')
+      //this.toaster.warning('Please Connect wallet first.', 'Attention!')
       // this.router.navigate([''])
     }
   }

@@ -61,14 +61,14 @@ export class MyWalletComponent implements OnInit {
       console.log('------------------bal',bal);
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
       } else {
-        this.toaster.warning('Please Signin / Signup first.', 'Attention!')
+        //this.toaster.warning('Please Signin / Signup first.', 'Attention!')
         // this.router.navigate([''])
       }
       this.searchData.sWalletAddress = this.showObj.wallet_address;
       this.listTransaction(this.searchData);
 
     } else {
-      this.toaster.warning('Please Connect wallet first.', 'Attention!')
+      //this.toaster.warning('Please Connect wallet first.', 'Attention!')
       this.router.navigate([''])
     }
 
