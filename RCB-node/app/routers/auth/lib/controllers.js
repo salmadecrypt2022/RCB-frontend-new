@@ -148,8 +148,9 @@ controllers.adminlogin = (req, res) => {
             if (err) return res.reply(messages.error());
             if (!user) return res.reply(messages.not_found('User'));
 
-            // bcrypt.compare(req.body.sPassword, user.sHash, (err, result) => {
-                if ( user.sRole == 'admin') {
+            bcrypt.compare(req.body.sPassword, user.sHash, (err, result) => {
+                console.log('-------------------------------result',result)
+                if ( user.sRole == 'admin' && result) {
                     req.session["admin_id"] = user.id;
                     req.session["admin_firstname"] = user.oName.sFirstname;
                     var token = signJWT(user);
@@ -162,7 +163,7 @@ controllers.adminlogin = (req, res) => {
                 } else {
                     return res.reply(messages.invalid('Password'));
                 }
-            // });
+            });
         })
     } catch (error) {
         return res.reply(messages.server_error());

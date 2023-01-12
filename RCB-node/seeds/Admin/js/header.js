@@ -74,10 +74,12 @@ function logout() {
 $('#logout').on('click', logout);
 
 async function loadRedeemablePoints() {
+
     if (!(await ethereum._metamask.isUnlocked())) {
+
         // Display Error message in Redeem Points Model
-        $("#lblAmountError").text("MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!");
-        $("#lblAmountError").removeClass("d-none");
+        $("#lblTokenURI").text("MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!");
+        $("#lblTokenURI").removeClass("d-none");
         // Disable Redeem points field and Redeem Button
         $("#redeemPoints").prop("disabled", true);
         $("#btnRedeem").prop("disabled", true);
@@ -86,37 +88,27 @@ async function loadRedeemablePoints() {
 
     const provider = window['ethereum'];
     var network = provider.networkVersion;
+    if (network != 80001 && network != 137) {
+        console.log('---------------------------network---111',)
 
-    if (network != 97) {
         let sNetworkName;
         switch (network) {
-            case "1":
-                sNetworkName = "MainNet";
+            case "80001":
+                sNetworkName = "Mumbai Testnet";
                 break;
-            case "2":
-                sNetworkName = "Morden";
+            case "137":
+                sNetworkName = "Matic Mainnet";
                 break;
-            case "3":
-                sNetworkName = "Ropsten";
-                break;
-            case "4":
-                sNetworkName = "Rinkeby";
-                break;
-            case "42":
-                sNetworkName = "Kovan";
-                break;
-            case "56":
-                sNetworkName = "BSC Mainnet";
-                break;
+
             default:
                 sNetworkName = "Unknown";
         }
         bIsValidNetworkSelected = false;
         // Display Error message in Redeem Points Model
-        $("#lblAmountError").text("Wrong Network Selected!");
-        $("#lblAmountError").removeClass("d-none");
+        $("#lblTokenURI").text("Wrong Network Selected!");
+        $("#lblTokenURI").removeClass("d-none");
         // Disable Redeem points field and Redeem Button
-        $("#redeemPoints").prop("disabled", true);
+        $("#tokenURI").prop("disabled", true);
         $("#btnRedeem").prop("disabled", true);
         return;
     }
@@ -125,61 +117,61 @@ async function loadRedeemablePoints() {
     var sAccount;
     let aAccounts = await web3.eth.getAccounts();
     sAccount = aAccounts[0];
+    if (sAccount != undefined || sAccount != null) {
 
-    if (window.localStorage.getItem("sWalletAddress") != sAccount) {
-        bIsValidAccountSelected = false;
-        // Display Error message in Redeem Points Model
-        $("#lblAmountError").text("Wrong Account Selected!");
-        $("#lblAmountError").removeClass("d-none");
-        // Disable Redeem points field and Redeem Button
-        $("#redeemPoints").prop("disabled", true);
-        $("#btnRedeem").prop("disabled", true);
+        if (window.localStorage.getItem("sWalletAddress") != sAccount) {
+            bIsValidAccountSelected = false;
+            // Display Error message in Redeem Points Model
+            $("#lblTokenURI").text("Please connect metamast wallet first.");
+            $("#lblTokenURI").removeClass("d-none");
+            // Disable Redeem points field and Redeem Button
+            $("#tokenURI").prop("disabled", true);
+            $("#btnRedeem").prop("disabled", true);
+            return;
+        }
+        // var oContract = new web3.eth.Contract(abi, mainContractAddress)
+
+        // let URI = await oContract.methods.baseURI().call({
+        //     from: sAccount
+        // });
+
+        // console.log(URI);
+
+        // $("#txtRedeemablePoints").text(URI);
+    } else {
+        toastr["error"]("Please connect with metamask.");
+        window.ethereum.enable();
+    }
+
+}
+
+
+$("#ConnectWallet").on("click", async () => {
+    if (!window.ethereum) {
+        toastr["error"]("No Ethereum Client Found.");
         return;
     }
 
-    var oContract = new web3.eth.Contract(abi, mainContractAddress)
-
-    let nUserEarnings = await oContract.methods.getUsersRedeemablePoints().call({
-        from: sAccount
-    });
-
-    console.log(nUserEarnings);
-    let nAmountInEther = Web3.utils.fromWei(nUserEarnings, 'ether');
-    console.log(nAmountInEther);
-    $("#txtRedeemablePoints").text(nAmountInEther);
-
-    if (nAmountInEther == 0) {
-        $("#redeemPoints").prop("disabled", true);
-        $("#btnRedeem").prop("disabled", true);
+    if (!(await ethereum._metamask.isUnlocked())) {
+        toastr["error"]('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
+        return;
     }
-}
+    window.ethereum.enable();
+})
 
 $("#btnRedeem").on("click", async () => {
     if (!(await ethereum._metamask.isUnlocked())) {
-        $('#lblAmountError').html('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
-        $("#lblAmountError").removeClass("d-none");
+        $('#lblTokenURI').html('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
+        $("#lblTokenURI").removeClass("d-none");
         return;
     }
-    if (isNaN($("#redeemPoints").val())) {
-        $("#lblAmountError").text("Amount Should be Numeric Only!");
-        $("#lblAmountError").removeClass("d-none");
+
+    if ($("#tokenURI").val() == '') {
+        $("#lblTokenURI").text("Please Enter base URI!");
+        $("#lblTokenURI").removeClass("d-none");
         return;
     }
-    if ($("#redeemPoints").val() == 0) {
-        $("#lblAmountError").text("Please Enter Amount!");
-        $("#lblAmountError").removeClass("d-none");
-        return;
-    }
-    if ($("#redeemPoints").val() < 0) {
-        $("#lblAmountError").text("Please Enter Value Amount!");
-        $("#lblAmountError").removeClass("d-none");
-        return;
-    }
-    if ($("#redeemPoints").val() > $("#txtRedeemablePoints").text()) {
-        $("#lblAmountError").text("You Don't Have That Much Points to Redeem!");
-        $("#lblAmountError").removeClass("d-none");
-        return;
-    }
+
 
     if (!bIsValidAccountSelected) {
         toastr["error"]("You've selected Wrong Address in MetaMask! Please Select Your Address.");
@@ -199,11 +191,11 @@ $("#btnRedeem").on("click", async () => {
     sAccount = aAccounts[0];
     var oContract = new web3.eth.Contract(abi, mainContractAddress)
 
-    await oContract.methods.redeemPoints(Web3.utils.toWei($("#redeemPoints").val(), 'ether')).send({
+    await oContract.methods.setBaseURILink($("#tokenURI").val()).send({
         from: sAccount
     }).then((receipt) => {
         console.log(receipt);
-        toastr["success"]("Redeemed Points Successfully!");
+        toastr["success"]("base URI set Successfully!");
         setInterval(() => {
             location.reload();
         }, 1000);
@@ -213,6 +205,5 @@ $("#btnRedeem").on("click", async () => {
             toastr["error"]("You Denied Transaction Request!");
         else
             toastr["error"]("Something Went Wrong!");
-        $("#btnRedeem").html("Redeem").prop("disabled", false);
     });
 });

@@ -8,5 +8,6 @@ router.get('/dashboard', adminRenderMiddleware.checkAuthAdmin, adminRenderContro
 router.get('/profile', adminRenderMiddleware.checkAuthAdmin, adminRenderController.profile);
 router.get('/users', adminRenderMiddleware.checkAuthAdmin, adminRenderController.users);
 router.get('/categories', adminRenderMiddleware.checkAuthAdmin, adminRenderController.categories);
+router.get('/reserves', adminRenderMiddleware.checkAuthAdmin, adminRenderController.reserves);
 
 module.exports = router;

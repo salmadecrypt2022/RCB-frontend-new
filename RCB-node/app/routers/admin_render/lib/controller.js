@@ -27,6 +27,14 @@ controllers.categories = (req, res) => {
     });
 }
 
+controllers.reserves = (req, res) => {
+    return res.render('Admin/reserves', {
+        req: req,
+        res: res
+    });
+}
+
+
 controllers.signin = (req, res) => {
     return res.render('Admin/signin', {
         req: req,

@@ -6,7 +6,7 @@ $(document).ready(() => {
             'Authorization': token
         },
         success: (result, status, xhr) => {
-            console.log(result);
+            // console.log(result);
             $("#numberOfUsers").text(result.data.nTotalRegisterUsers);
             $("#numberOfNFTsOnSale").text(result.data.nFixedSaleNFTsCount);
             $("#numberOfNFTsOnAuction").text(result.data.nAuctionNFTsCount);
@@ -42,13 +42,13 @@ $(document).ready(() => {
                             label: "",
                             tension: 0.4,
                             backgroundColor: 'transparent',
-                            borderColor: '#2c80ff',
-                            pointBorderColor: "#2c80ff",
+                            borderColor: '#E02834',
+                            pointBorderColor: "#E02834",
                             pointBackgroundColor: "#fff",
                             pointBorderWidth: 2,
                             pointHoverRadius: 6,
                             pointHoverBackgroundColor: "#fff",
-                            pointHoverBorderColor: "#2c80ff",
+                            pointHoverBorderColor: "#E02834",
                             pointHoverBorderWidth: 2,
                             pointRadius: 6,
                             pointHitRadius: 6,

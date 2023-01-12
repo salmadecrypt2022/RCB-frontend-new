@@ -40,12 +40,25 @@ const categorySchema = mongoose.Schema({
         //  1:  Mined
         enum: [-99, -1, 0, 1]
     },
+    category_id: {
+        type: Number,
+        default: 0
+    },
+    category_status: {
+        type: String,
+        enum: ['active', 'inactive'],
+        default: 'inactive'
+    },
+    category_name: {
+        type: String,
+    },
     sWalletAddress: {
         type: String
     },
     sPrice: {
         type: String
     },
+    users:[{ type: String}]
 });
 // categorySchema.set( 'toJSON', { getters: true } )
 module.exports = mongoose.model('Category', categorySchema);

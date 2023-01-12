@@ -30,75 +30,7 @@
   <p style="color: white"> Loading... </p>
 </ngx-spinner>
 
-<!-- Modal-1 -->
-<div class="modal sign-up-modal" id="Modal-sign-up" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
 
-      <button type="button" class="close" data-bs-dismiss="modal"><span class="iconify"
-          data-icon="carbon:close"></span></button>
-    
-      <h6>Edit Profile</h6>
-
-      <!-- <form name="editProfileform" [formGroup]="editProfileform">
-
-        <p>User name</p>
-        <input type="text" placeholder="Enter your user name"
-          [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sUserName.errors }"
-          formControlName="sUserName">
-        <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sUserName.errors">
-          <span *ngIf="editProfileform.controls.sUserName.errors?.required">This
-            field is required.</span>
-
-        </div>
-
-        <p>Email Address</p>
-        <input type="email" [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sEmail.errors }"
-          formControlName="sEmail">
-        <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sEmail.errors">
-          <span *ngIf="editProfileform.controls.sEmail.errors?.required">This
-            field is required.</span>
-
-        </div>
-
-        <p>Upload Image</p>
-        <input type="file" accept=".png,.jpg,.jpeg" (change)="onSelectDocument($event)">
-
-        <p>Wallet address</p>
-        <input type="text" placeholder="Enter your Wallet address"
-          [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sWalletAddress.errors }"
-          formControlName="sWalletAddress" readonly>
-        <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sWalletAddress.errors">
-          <span *ngIf="editProfileform.controls.sWalletAddress.errors?.required">This
-            field is required.</span>
-
-        </div>
-        <p>Bio</p>
-        <input type="text" placeholder="Enter your Bio"
-          [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sBio.errors }" formControlName="sBio">
-        <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sBio.errors">
-          <span *ngIf="editProfileform.controls.sBio.errors?.required">This
-            field is required.</span>
-
-        </div>
-
-      </form> -->
-
-
-
-      <button class="sign-up" type="submit"  (click)="onClickSubmit()">Save</button>
-
-      <!-- <a data-bs-toggle="modal" data-bs-target="#Modal-sign-in" href="#">Already have an account? Sign In</a> -->
-
-      <div class="line-or">
-        <div class="first-line"></div>
-        <p>Or</p>
-        <div class="second-line"></div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Modal-2 -->
 <div class="modal sign-in-modal" id="Modal-sign-in" tabindex="-1" aria-labelledby="exampleModalLabel"
