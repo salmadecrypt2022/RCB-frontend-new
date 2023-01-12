@@ -55,6 +55,7 @@ export class PackDetailComponent implements OnInit {
     this.getActiveCategory();
     
     this.showObj.wallet_address = await this.apiService.export();
+    console.log("wallet address is---->",this.showObj.wallet_address);
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
 
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
@@ -140,9 +141,23 @@ export class PackDetailComponent implements OnInit {
             const that = this;
             //this.toaster.error("You'!", 'Error!');
             
-            console.log("wallet address---->",that.showObj.wallet_address);
+            console.log("wallet address 1---->",that.showObj.wallet_address);
             //let balance;
+            console.log("wallet address is- 2--->",this.showObj.wallet_address);
+            
+            
+            console.log("this show obj is----->",this.showObj);
+            
+           
+            let maxTokenMint=await NFTinstance.methods.totalTokensMintedPerCategory(that.showObj.category_id).call();
+            if(parseInt(maxTokenMint)==this.showObj.categoryTokencap){
+              this.toaster.error("All tokens got minted for this category!", 'Error!');
+              this.spinner.hide();
+            
+              return;
+            }
             let balance=await NFTinstance.methods.tokensMintedPerCategoryPerAddress(that.showObj.wallet_address,that.showObj.category_id).call();
+            console.log("balance is----->",balance);
             if(parseInt(res.quantity)+parseInt(balance)>parseInt(this.showObj.perAddress)){
               console.log("balance is----->",balance);
               this.toaster.error("Amount Exceed Max per wallet address!", 'Error!');
