@@ -15,6 +15,20 @@ $(document).ready(function () {
         autoplaySpeed: 2000,
       });
 
+      $('.latest-pack-videos').slick({
+        dots: false,
+        arrows: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 3,
+        // vertical: false,
+        // asNavFor: '.ball-scroll',
+        // verticalSwiping: true,
+        slidesToScroll: 3,
+        autoplay: true,
+        autoplaySpeed: 2000,
+      });
+
       $('.company-logo-scroller').slick({
         dots: false,
         infinite: false,

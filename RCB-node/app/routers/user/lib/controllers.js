@@ -4,7 +4,7 @@ const multer = require('multer');
 const mongoose = require('mongoose');
 const pinata = pinataSDK(process.env.PINATAAPIKEY, process.env.PINATASECRETAPIKEY);
 const {
-    User,
+    User, Category, Subscribe
 } = require('../../../models');
 const _ = require('../../../../globals/lib/helper');
 
@@ -13,7 +13,7 @@ const controllers = {};
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, process.cwd() + '/nft');
+        callback(null, process.cwd() + '/usersImages');
     },
     filename: (req, file, callback) => {
         callback(null, new Date().getTime() + '_' + file.originalname);
@@ -80,21 +80,21 @@ controllers.updateProfile = async (req, res, next) => {
             if (error) return res.reply(messages.bad_request(error.message));
 
             if (!req.body.sUserName) return res.reply(messages.not_found("Username"));
-            if (!req.body.sFirstname) return res.reply(messages.not_found("First Name"));
-            if (!req.body.sLastname) return res.reply(messages.not_found("Last Name"));
+            // if (!req.body.sFirstname) return res.reply(messages.not_found("First Name"));
+            // if (!req.body.sLastname) return res.reply(messages.not_found("Last Name"));
 
-            if (!validators.isValidString(req.body.sFirstname) || !validators.isValidName(req.body.sFirstname)) return res.reply(messages.invalid("First Name"));
-            if (!validators.isValidString(req.body.sLastname) || !validators.isValidName(req.body.sLastname)) return res.reply(messages.invalid("Last Name"));
-            if (!validators.isValidString(req.body.sUserName) || !validators.isValidName(req.body.sUserName)) return res.reply(messages.invalid("Username"));
+            // if (!validators.isValidString(req.body.sFirstname) || !validators.isValidName(req.body.sFirstname)) return res.reply(messages.invalid("First Name"));
+            // if (!validators.isValidString(req.body.sLastname) || !validators.isValidName(req.body.sLastname)) return res.reply(messages.invalid("Last Name"));
+            if (!validators.isValidString(req.body.sUserName));
 
-            if (req.body.sWebsite.trim() != "") {
-                if (req.body.sWebsite.trim().length > 2083)
-                    return res.reply(messages.invalid("Website"));
+            // if (req.body.sWebsite.trim() != "") {
+            //     if (req.body.sWebsite.trim().length > 2083)
+            //         return res.reply(messages.invalid("Website"));
 
-                const reWebsite = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-                if (!reWebsite.test(req.body.sWebsite.trim()))
-                    return res.reply(messages.invalid("Website"));
-            }
+            //     const reWebsite = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+            //     if (!reWebsite.test(req.body.sWebsite.trim()))
+            //         return res.reply(messages.invalid("Website"));
+            // }
 
             if (req.body.sBio.trim() != "")
                 if (req.body.sBio.trim().length > 1000)
@@ -110,10 +110,10 @@ controllers.updateProfile = async (req, res, next) => {
 
                 oProfileDetails = {
                     sUserName: req.body.sUserName,
-                    oName: {
-                        sFirstname: req.body.sFirstname,
-                        sLastname: req.body.sLastname
-                    },
+                    // oName: {
+                    //     sFirstname: req.body.sFirstname,
+                    //     sLastname: req.body.sLastname
+                    // },
                     sWebsite: req.body.sWebsite,
                     sBio: req.body.sBio,
                     sEmail: req.body.sEmail,
@@ -413,5 +413,86 @@ controllers.followUser = async (req, res) => {
         return res.reply(messages.server_error());
     }
 }
+
+
+controllers.getCategoryByActive = async (req, res, next) => {
+    try {
+        let findData = await Category.findOne({ category_status: 'active' });
+        if (findData && findData != null) {
+            // starttime: "1645728216"
+            // endtime: "1920002931"
+            let currentDate = new Date().getTime();
+            currentDate = parseInt(currentDate) / 1000;
+            currentDate = parseInt(currentDate);
+            findData = findData.toObject();
+
+            let start_date = parseInt(findData.starttime);
+            let end_date = parseInt(findData.endtime);
+
+            if (start_date < currentDate && end_date > currentDate) {
+                findData.status = "ongoing";
+              } else {
+                if (start_date > currentDate) {
+                  findData.status = "upcoming";
+                }
+                if (currentDate > end_date) {
+                  findData.status = "completed";
+                }
+              }
+
+              
+
+            return res.reply(messages.success(), {
+                data: findData,
+                message: 'Category finded successfully.'
+            });
+        }else{
+            return res.reply(messages.success(), {
+                data:{},
+                message: 'Category finded successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+
+
+controllers.subscribe = async (req, res, next) => {
+    try {
+        let findData = await Subscribe.find(req.body);
+        if (findData.length) {
+            return res.reply(messages.success(), {
+                data: {},
+                message: 'You already subscribed.',
+                code:400
+            });
+        }
+        let createData = await Subscribe.create(req.body);
+        if (createData && createData != null && createData != undefined) {
+            return res.reply(messages.success(), {
+                data: createData,
+                message: 'Subscribed successfully.',
+                code:200
+            });
+        } else {
+
+            return res.reply(messages.server_error(), {
+                data: {},
+                message: 'Internal server err.',
+                code:404
+            });
+        }
+
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
 
 module.exports = controllers;

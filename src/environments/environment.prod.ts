@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  // URL: 'http://localhost:3000/api/v1',
-  URL: 'https://rcb-backend.blockchainaustralia.link/api/v1',
+   URL: 'https://rcb-backend.blockchainaustralia.link/api/v1',
+  //URL: 'http://167.172.84.106:3000/api/v1',
 
   
   testNetPOLY: 'https://rpc-mumbai.maticvigil.com/',
@@ -17,6 +17,8 @@ export const environment = {
   polyMainnet: 'Polygon Mainnet',
   // Polygon Test Network 
   polyTestnet: 'Polygon Mainnet',
+  chainId: '80001',
+
 
   divideValue: 1000000000000000000,
 

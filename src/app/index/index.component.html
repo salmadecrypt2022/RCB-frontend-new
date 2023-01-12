@@ -35,7 +35,7 @@
       <div class="digital-container">
         <p class="digital-para">The Larget Cricket NFT Marketplace</p>
         <h3>Discover & Collect Rare Digital Artwork</h3>
-        <a href="#" class="btn mt-2"><img src="../../assets/images/icon-cart.png" class="img-fluid hero-icon">Start My Collection</a>
+        <a href="javascript:;" routerLink="/pack-detail" class="btn mt-2"><img src="../../assets/images/icon-cart.png" class="img-fluid hero-icon">Buy now</a>
       </div>
     </div>
   </div>
@@ -101,8 +101,8 @@
 
             <img class="img-fluid" src="../../assets/images/video-4.png" alt="">
           </div>
-          <a href="#" class="btn">
-            <span class="me-3">EXPLORE MOMENTS</span> <i class="fas fa-arrow-right video-arrow"></i>
+          <a href="javascript:;" routerLink="/pack-detail" class="btn">
+            <span class="me-3">Buy now</span> <i class="fas fa-arrow-right video-arrow"></i>
           </a>
         </div>
 
@@ -118,7 +118,7 @@
           <h2 data-aos="zoom-in">upcoming ball packs</h2>
           <p class="pt-4 first-para-1">02:13:01:00</p>
           <br>
-          <a href="#">See More</a>
+          <a href="javascript:;" routerLink="/pack-detail">Buy now</a>
         </div>
 
         <div class="col-lg-8  second-one-1">
@@ -191,7 +191,7 @@
           <h2 class="text-center">Legendary NFT Pack</h2>
           <p class="text-center">Class aptent taciti sociosqu ad litora, torquent per conubia nostra per inceptos himenaeos.</p>
 
-          <a href="#" class="btn">View Collection</a>
+          <a href="javascript:;" routerLink="/pack-detail" class="btn">Buy now</a>
 
         </div>
 
@@ -242,10 +242,11 @@
             <h2 class="stay-text text-center">Stay in the loop on MetaWicket
               and our NFT moments</h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-              <form class="wrapper-stay text-center">
-                <input class="stay-input" placeholder="Your Email" type="email">
-                <button class="stay-button" type="submit">Subscribe</button>
-              </form>
+              <div class="wrapper-stay text-center">
+                <input class="stay-input" placeholder="Your Email" type="test" [(ngModel)]="val" 
+                >
+                <button class="stay-button" type="submit" (click)="subscribe()">Subscribe</button>
+              </div>
           </div>
           
           </div>

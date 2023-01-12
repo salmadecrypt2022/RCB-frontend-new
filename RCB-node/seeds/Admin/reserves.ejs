@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- xhtml/index.html08:17:22 -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Reserves | RCB</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="/assets/images/RCB-logo.png">
+
+    <!-- TODO: Check if this is required or not! -->
+    <link rel="stylesheet" href="../assets/vendor/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/vendor/datatables/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <link href="../assets/css/admin-style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!-- Include Header -->
+        <%- include('header'); -%>
+
+            <!-- Include Sidebar -->
+            <%- include('sidebar'); -%>
+
+                <!--**********************************
+            Content body start
+        ***********************************-->
+                <div class="content-body">
+                    <!-- row -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Reserve NFTs</h4>
+                                        <div class="col-6 text-right">
+                                            <button class="btn btn-primary btn-peach with-icon" id="reserveTok">
+                                                <span>Reserve</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="reserveTable" class="display">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Address</th>
+                                                        <th>Token Id</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="reserveList"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="modal fade show" id="reserveToken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <a href="#" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span class="iconify text-brick-red rounded-circle" data-icon="carbon:close-filled"
+                        data-inline="false" style="background-color: #fff;" data-width="20" data-height="20"></span>
+                </a>
+                <div class="modal-body">
+                    <div class="content-sec">
+                        <div class="row">
+                            <div class="col">
+                                <img src="../assets/images/RCB-logo.png" class="img-fluid mx-auto mb-4 mt-4 d-table" />
+                                <h6 class="font-family-infra-semibold text-capitalize text-center mb-0">Reserve NFT
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+
+                                <select class="form-control avoid-selectpicker" name="user_address" id="user_address">
+                                    <option value="">Select user</option>
+
+                                </select>
+                                <label for="User" id="lblUser" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="NFT_id" id="NFT_id"
+                                    placeholder="NFT id">
+                                <label for="NFT_id" id="lblNFT_id" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <button class="btn btn-primary btn-peach with-icon mx-auto" id="btnReserve">
+                                    <span>Reserve</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+            Content body end
+        ***********************************-->
+
+    <!--**********************************
+            Footer start
+        ***********************************-->
+
+    <%- include('footer'); -%>
+
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        </div>
+        <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+        <!--**********************************
+        Scripts
+    ***********************************-->
+        <!-- Required vendors -->
+
+        <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="../assets/js/custom.min.js"></script>
+        <script src="../assets/js/deznav-init.js"></script>
+        <script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../assets/vendor/datatables/js/dataTables.responsive.min.js"></script>
+
+        <script src="../Admin/js/reserves.js"></script>
+
+
+</body>
+
+<!-- xhtml/index.html08:18:50 -->
+
+</html>

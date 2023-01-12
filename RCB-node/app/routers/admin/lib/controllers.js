@@ -1,9 +1,12 @@
 const fs = require('fs');
+const mongoose = require('mongoose');
+
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const {
     User,
-    Category
+    Category,
+    Reserve
 } = require('../../../models');
 const {
     nodemailer
@@ -193,9 +196,31 @@ controllers.toggleUserStatus = async (req, res, next) => {
     }
 }
 
+controllers.toggleCategoryStatus = async (req, res, next) => {
+    try {
+        if (!req.body.sObjectId) return res.reply(messages.not_found("Category ID"));
 
+        if (!validators.isValidObjectID(req.body.sObjectId)) res.reply(messages.invalid("Category ID"));
 
+        Category.findByIdAndUpdate(req.body.sObjectId, {
+            category_status: 'active'
+        },
+            async(err, user) => {
 
+                await Category.updateMany({_id:{$ne:mongoose.Types.ObjectId(req.body.sObjectId)}}, {$set:{
+                    category_status: 'inactive'
+                }})
+                if (err) {
+                    log.red(err);
+                    return res.reply(messages.server_error());
+                }
+                if (!user) return res.reply(messages.not_found('User'));
+                return res.reply(messages.updated('Category Status'));
+            });
+    } catch (error) {
+        return res.reply(messages.server_error());
+    }
+}
 
 controllers.categoriesList = async (req, res, next) => {
     try {
@@ -267,8 +292,56 @@ controllers.categoriesList = async (req, res, next) => {
 }
 
 
+controllers.reserves = async (req, res, next) => {
+    try {
+        // Per page limit
+        var nLimit = parseInt(req.body.length);
+        // From where to start
+        var nOffset = parseInt(req.body.start);
+
+        // Get total number of records
+        let nTotalReserve = await Reserve.countDocuments({
+
+        });
 
 
+        let oSortingOrder = {};
+        oSortingOrder[req.body.columns[parseInt(req.body.order[0].column)].data] = (req.body.order[0].dir == "asc") ? 1 : -1;
+
+        let aReserves = await Reserve.aggregate([{
+            "$sort": oSortingOrder
+        },
+        {
+            "$match": {
+                
+            }
+        },
+        {
+            "$limit": nOffset + nLimit
+        },
+        {
+            "$skip": nOffset
+        }
+        ]);
+
+        let nNumberOfRecordsInSearch = await Reserve.aggregate([{
+            "$match": {
+               
+            }
+        }]);
+
+        return res.reply(messages.success(), {
+            data: aReserves,
+            draw: req.body.draw,
+            "recordsTotal": nTotalReserve,
+            "recordsFiltered": nNumberOfRecordsInSearch.length
+        });
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
 
 controllers.createCategory = async (req, res, next) => {
     try {
@@ -287,4 +360,184 @@ controllers.createCategory = async (req, res, next) => {
         return res.reply(messages.server_error());
     }
 }
+
+
+
+controllers.reserveToken = async (req, res, next) => {
+    try {
+
+        let createData = await Reserve.create(req.body);
+        if (createData && createData != null) {
+
+            return res.reply(messages.success(), {
+                data: createData,
+                message: 'Reserved successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.updateCategory = async (req, res, next) => {
+    try {
+       let upDateData =  await Category.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.body._id) },{$set:req.body});
+        if (upDateData && upDateData != null) {
+
+            return res.reply(messages.success(), {
+                data: upDateData,
+                message: 'Category updated successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+controllers.usersInCategory = async (req, res, next) => {
+    try {
+        // {}req.body
+        let data = await User.find({
+            "sRole": {
+                $ne: "admin"
+            }
+        });
+        if (data && data != null) {
+
+            return res.reply(messages.success(), {
+                data: data,
+                message: 'Users listed successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+
+controllers.allowUser = async (req, res, next) => {
+    try {
+        // category_id:cat_id,
+        // sTransactionHash: '',
+        // sTransactionStatus: 0,
+        // sWalletAddress: sAccount,
+        // user_address: $("#user_address").val(),
+        let { user_address, category_id ,_id} = req.body;
+        let data = await Category.findOne({ _id: mongoose.Types.ObjectId(_id) });
+        if (data && data != null) {
+            let ary = [];
+
+            if (data && data.users.length) {
+
+                const regex = new RegExp(user_address, 'i');
+
+                let matchedSites = data.users.filter((href) => href.match(regex));
+
+                ary = data.users;
+                if(!matchedSites.length){
+                   ary.push(user_address);
+                }
+            }else{
+                ary.push(user_address);
+            }
+
+
+            await Category.findOneAndUpdate({ _id: mongoose.Types.ObjectId(_id) },{$set:{users:ary}});
+            return res.reply(messages.success(), {
+                data: data,
+                message: 'Users allowed successfully.'
+            });
+        } else {
+            return res.reply(messages.server_error(), {
+                data: {},
+                message: 'Category not found.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.getDashboardData = async (req, res) => {
+    try {
+        if (!req.userId) return res.reply(messages.unauthorized());
+
+        let nTotalRegisterUsers = 0;
+
+        nTotalRegisterUsers = await User.collection.countDocuments({
+            sRole: 'user'
+        });
+        let data = await User.aggregate([{
+                $match: {
+                    sRole: 'user'
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        day: {
+                            $dayOfMonth: "$sCreated"
+                        },
+                        month: {
+                            $month: "$sCreated"
+                        },
+                        year: {
+                            $year: "$sCreated"
+                        }
+                    },
+                    count: {
+                        $sum: 1
+                    },
+                    date: {
+                        $first: "$sCreated"
+                    },
+                },
+            },
+            {
+                $sort: {
+                    date: -1
+                }
+            }
+        ]);
+
+   
+        return res.reply(messages.success(), {
+            nTotalRegisterUsers,
+            data
+        });
+    } catch (error) {
+        return res.reply(messages.server_error());
+    }
+};
+
+controllers.getCategoryById = async (req, res, next) => {
+    try {
+       let upDateData =  await Category.findOne({ _id: mongoose.Types.ObjectId(req.params.id)});
+        if (upDateData && upDateData != null) {
+
+            return res.reply(messages.success(), {
+                data: upDateData,
+                message: 'Category get successfully.'
+            });
+        }else{
+
+            return res.reply(messages.success(), {
+                data: {},
+                message: 'Category Not found.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
 module.exports = controllers;

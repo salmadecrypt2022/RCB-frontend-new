@@ -4,7 +4,7 @@
     <button class="menu-button position-absolute end-0" onclick="toggleClass()"><span class="iconify"
         data-icon="eva:close-fill"></span></button>
 
-    <a>
+    <a routerLink="/index">
       <img src="../../assets/images/rcb-footer-logo.png" class="img-fluid mx-auto d-table" />
     </a>
 
@@ -32,7 +32,7 @@
                 src="../../assets/images/side-menu-icons/commnity-icon.png" class="img-fluid" /> Community</a>
           </li> -->
 
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="login">
             <a class="menu-link" routerLink="/my-wallet"><img src="../../assets/images/side-menu-icons/wallet-icon.png"
                 class="img-fluid" /> Wallet</a>
           </li>
@@ -42,7 +42,7 @@
                 src="../../assets/images/side-menu-icons/myactivebids-icon.png" class="img-fluid" /> My Active Bids</a>
           </li> -->
 
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="login">
             <a class="menu-link" routerLink="/profile"><img
                 src="../../assets/images/side-menu-icons/myportfolio-icon.png" class="img-fluid" /> My Portfolio</a>
           </li>
@@ -53,12 +53,12 @@
           </li>
         </ul>
 
-        <div class="live-clock mt-3">
+        <div class="live-clock mt-3" *ngIf="login">
           <div class="first-live-clock align-items-center">
             <div class="user-pic"></div>
             <div class="live-col">
-              <p class="upcoming-para-1 mb-0">username</p>
-              <p class="upcoming-para-2 mb-0">Wallet Remaining</p>
+              <p class="upcoming-para-1 mb-0">{{profileData&& profileData.sUserName && profileData.sUserName ? profileData.sUserName :'-'}}</p>
+              <p class="upcoming-para-2 mb-0">{{showObj.wallet_address| slice:0:6}}...{{showObj.wallet_address| slice:-4}}</p>
             </div>
           </div>
         </div>

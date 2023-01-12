@@ -1,32 +1,37 @@
 <section class="mobile">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-6">
-          <div class="mobile-nav-wrapper">
-            <a class="left__part" href="#">
-              <div class="hamburger">
-                <button class="menu-button" onclick="toggleClass()"><span class="iconify" data-icon="icon-park:hamburger-button"></span></button>
-              </div>
-              <div class="closed-menu">
-                <button class="menu-button" onclick="toggleClass()"><span class="iconify" data-icon="eva:close-fill"></span></button>
-              </div>
-            </a>
-            <a href="#" class="middle__part text-center"><img src="../../assets/images/logo/RCB-top-logo.png" alt=""  class="img-fluid"></a>
-            <a class="nav-icon right__part me-2" href="#"><img src="../../assets/images/icon/user-icon.png" class="img-fluid" alt=""></a>
-            <a class="nav-icon right__part" href="#"><img src="../../assets/images/icon/icon-Notification.png" class="img-fluid" alt=""></a>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="mobile-nav-wrapper">
+          <a class="left__part" href="#">
+            <div class="hamburger">
+              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
+                  data-icon="icon-park:hamburger-button"></span></button>
+            </div>
+            <div class="closed-menu">
+              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
+                  data-icon="eva:close-fill"></span></button>
+            </div>
+          </a>
+          <a href="#" class="middle__part text-center"><img src="../../assets/images/logo/RCB-top-logo.png" alt=""
+              class="img-fluid"></a>
+          <a class="nav-icon right__part me-2" href="#"><img src="../../assets/images/icon/user-icon.png"
+              class="img-fluid" alt=""></a>
+          <a class="nav-icon right__part" href="#"><img src="../../assets/images/icon/icon-Notification.png"
+              class="img-fluid" alt=""></a>
         </div>
+      </div>
 
-        <div class="col-xl-6">
-          <div class="navbar-first-col">
-            <form class="navbar-form">
-              <input type="text" placeholder="Search Packs">
-              <button type="submit" class="fmobile"><img src="../../assets/images/icon/icon-Search.png" alt=""></button>
-            </form>
-          </div>
+      <div class="col-xl-6">
+        <div class="navbar-first-col">
+          <form class="navbar-form">
+            <input type="text" placeholder="Search Packs">
+            <button type="submit" class="fmobile"><img src="../../assets/images/icon/icon-Search.png" alt=""></button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 </section>
 
 <section class="starter-pack mt-4">
@@ -34,14 +39,14 @@
     <div class="pack">
       <div class="row">
         <div class="col-lg-6">
-            <h4>Get your Starter Packs Here!</h4>
+          <h4>Get your Starter Packs Here!</h4>
 
-            <div class="nft">
-              <h2 data-aos="fade-right">STARTER PACK:</h2>
-              <h2 data-aos="fade-right">BASE SET</h2>
-            </div>
+          <div class="nft">
+            <h2 data-aos="fade-right">STARTER PACK:</h2>
+            <h2 data-aos="fade-right">FIRST DROP</h2>
+          </div>
 
-            <p>Common | Contain 4 Moments | Price : $9 | Release $0</p>
+          <p>Category {{showObj.category_name ? showObj.category_name : '-'}} | Contain {{showObj.perAddress ? showObj.perAddress :0}} Per Address | Price : ${{showObj.price ? (showObj.price| number : '1.0-4') :0}} USD | TotalSupply {{showObj.categoryTokencap ? showObj.categoryTokencap :0}}</p>
         </div>
 
         <div class="col-lg-6 d-flex align-items-center">
@@ -54,67 +59,81 @@
 
 <section class="featured-packs mt-4">
   <div class="container">
-    <h2 class="first-line">Featured Packs</h2>
+    <h2 class="first-line">Featured NFTs</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+      <div class="col-md-4 mb-4 mb-md-0 d-flex align-items-center justify-content-center" (click)="detailPage()">
 
         <div class="featured-card me-auto ms-auto">
-          <div class="featured-card-body">
+          <div class="featured-card-body cur-point">
             <div class="featured-img">
-              <img src="../../assets/images/ball-250.png" class="img-fluid" alt="">
+              <video width="100%" height="300" loop autoplay muted>
+                <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/ball-rcb-mp4.mp4" type="video/mp4">
+                <!-- <source src="movie.ogg" type="video/ogg"> -->
+              Your browser does not support the video tag.
+            </video>
             </div>
             <h5 class="card-title">Base set</h5>
-            <p>Series 2 | Release 41</p>
-            <h4>AUD $10.00</h4>
+            <p>Series 2 | Category {{showObj.category_id ? showObj.category_id :0}}</p>
+            <h4>${{showObj.price ? (showObj.price | number : '1.0-4'):0}} USD</h4>
           </div>
         </div>
 
       </div>
 
-      <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+      <div class="col-md-4 mb-4 mb-md-0 d-flex align-items-center justify-content-center" (click)="detailPage()">
 
         <div class="featured-card me-auto ms-auto">
-          <div class="featured-card-body">
+          <div class="featured-card-body cur-point">
+            <div class="featured-img">
+              <video width="100%" height="300" loop autoplay muted>
+                <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/red-jersey-mp4.mp4" type="video/mp4">
+                <!-- <source src="movie.ogg" type="video/ogg"> -->
+              Your browser does not support the video tag.
+            </video>
+            </div>
+            <h5 class="card-title">Base set</h5>
+            <p>Series 2 | Category {{showObj.category_id ? showObj.category_id :0}}</p>
+            <h4>${{showObj.price ? (showObj.price | number : '1.0-4'):0}} USD</h4>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 mb-4 mb-md-0 d-flex align-items-center justify-content-center" (click)="detailPage()">
+
+        <div class="featured-card me-auto ms-auto">
+          <div class="featured-card-body cur-point">
+            <div class="featured-img">
+              <video width="100%" height="300" loop autoplay muted>
+                <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/blue-jersey-mp4.mp4" type="video/mp4">
+                <!-- <source src="movie.ogg" type="video/ogg"> -->
+              Your browser does not support the video tag.
+            </video>
+            </div>
+            <h5 class="card-title">Base set</h5>
+            <p>Series 2 | Category {{showObj.category_id ? showObj.category_id :0}}</p>
+            <h4>${{showObj.price ? (showObj.price | number : '1.0-4'):0}} USD</h4>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center" (click)="detailPage()">
+
+        <div class="featured-card me-auto ms-auto">
+          <div class="featured-card-body cur-point">
             <div class="featured-img">
               <img src="../../assets/images/white-ball-250.png" class="img-fluid" alt="">
             </div>
             <h5 class="card-title">Base set</h5>
-            <p>Series 2 | Release 41</p>
-            <h4>AUD $10.00</h4>
+            <p>Series 2 | Category {{showObj.category_id ? showObj.category_id :0}}</p>
+            <h4>${{showObj.price ? (showObj.price| number : '1.0-4') :0}} USD</h4>
           </div>
         </div>
 
-      </div>
+      </div> -->
 
-      <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-        
-        <div class="featured-card me-auto ms-auto">
-          <div class="featured-card-body">
-            <div class="featured-img">
-              <img src="../../assets/images/ball-250.png" class="img-fluid" alt="">
-            </div>
-            <h5 class="card-title">Base set</h5>
-            <p>Series 2 | Release 41</p>
-            <h4>AUD $10.00</h4>
-          </div>
-        </div>
 
-      </div>
-
-      <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-        
-        <div class="featured-card me-auto ms-auto">
-          <div class="featured-card-body">
-            <div class="featured-img">
-              <img src="../../assets/images/white-ball-250.png" class="img-fluid" alt="">
-            </div>
-            <h5 class="card-title">Base set</h5>
-            <p>Series 2 | Release 41</p>
-            <h4>AUD $10.00</h4>
-          </div>
-        </div>
-
-      </div>
     </div>
   </div>
 </section>
