@@ -114,8 +114,9 @@ export class PackDetailComponent implements OnInit {
       return;
       // this.router.navigate([''])
     }
-    let networkCheck:any=this.apiService.checkNetwork();
+    let networkCheck:any=await this.apiService.checkNetwork();
     //console.log("network check is",networkCheck)
+    this.showObj.wallet_address = await this.apiService.export();
 
     const that = this;
     
