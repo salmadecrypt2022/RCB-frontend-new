@@ -133,10 +133,12 @@ export class PackDetailComponent implements OnInit {
             const that = this;
             //this.toaster.error("You'!", 'Error!');
             
-            let balance=await NFTinstance.methods.balanceOf(that.showObj.wallet_address).call();
+            console.log("wallet address---->",that.showObj.wallet_address);
+            //let balance;
+            let balance=await NFTinstance.methods.tokensMintedPerCategoryPerAddress(that.showObj.wallet_address,that.showObj.category_id).call();
             if(parseInt(res.quantity)+parseInt(balance)>parseInt(this.showObj.perAddress)){
               console.log("balance is----->",balance);
-              this.toaster.error("Ammount Exceed Maxm per wallet address!", 'Error!');
+              this.toaster.error("Amount Exceed Max per wallet address!", 'Error!');
               this.spinner.hide();
             
               return;
