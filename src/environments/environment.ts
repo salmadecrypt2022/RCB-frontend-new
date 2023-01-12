@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  URL: 'http://localhost:3000/api/v1',
+  URL: 'https://rcb-backend.blockchainaustralia.link/api/v1',
   // URL: 'http://167.172.84.106:3000/api/v1',
 
   
