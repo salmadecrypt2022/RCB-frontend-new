@@ -72,13 +72,13 @@ export class ProfileComponent implements OnInit {
 
         })
       }else {
-        this.toaster.warning('Please Signin / Signup first.','Attention!')
+        //this.toaster.warning('Please Signin / Signup first.','Attention!')
         this.router.navigate([''])
       }
       
   
     }else{
-      this.toaster.warning('Please Connect wallet first.','Attention!')
+      //this.toaster.warning('Please Connect wallet first.','Attention!')
       this.router.navigate([''])
     }
   }

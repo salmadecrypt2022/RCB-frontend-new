@@ -138,10 +138,8 @@ export class ApiService {
       return {};
     }
   }
-
-  // --dn
-  async export() {
-
+  
+  async checkNetwork(){
     if (window.ethereum) {
       return new Promise(async (resolve, reject) => {
         
@@ -205,12 +203,52 @@ export class ApiService {
             }
           }else if (error.code === 4001){
             this.toaster.error("Please switch to correct network." , 'Error!');
+           
             resolve([]);
+            this.onClickRefresh();
           }else{
             console.error(error);
             return;
           }
         }
+
+        /*********** Testtt () */
+
+        let accounts: any = await window.ethereum.request({ method: 'eth_requestAccounts' }).then((data: any) => {
+          if (data && data.length) {
+            return data;
+          }
+        }).catch(async (err: any) => {
+          if (err && err.code == 4001) {
+            this.toaster.error(err['message'], 'Error!');
+          }
+          
+        });
+
+        if (accounts && accounts.length) {
+          window.web3.eth.defaultAccount = accounts[0];
+          let obj: any = {};
+          obj.wallet_address = accounts[0];
+          this.setBehaviorView({ ...this.getBehaviorView(), ...obj });
+
+          resolve(accounts[0])
+        } else {
+          resolve([]);
+        }
+      })
+    } else {
+      console.log
+      this.toaster.error('No account found! Make sure the Ethereum client is configured properly. ', 'Error!')
+    }
+  }
+
+  // --dn
+  async export() {
+
+    if (window.ethereum) {
+      return new Promise(async (resolve, reject) => {
+        
+     
 
         /*********** Testtt () */
 
@@ -357,7 +395,7 @@ export class ApiService {
     return this.http.get(this.URL + '/user/profile', { headers: { 'Authorization': this.getHeaders() } });
   }
   getActiveCategory() {
-    return this.http.get(this.URL + '/user/getCategory', { headers: { 'Authorization': this.getHeaders() } });
+    return this.http.get(this.URL + '/user/getCategory');
   }
 
 

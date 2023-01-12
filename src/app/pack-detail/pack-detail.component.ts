@@ -39,6 +39,7 @@ export class PackDetailComponent implements OnInit {
     // this.id = this._route.snapshot.params['id'];
   }
   async ngOnInit() {
+    console.log("pack details ngonint is called");
     this.buildCreateForm1();
    
 
@@ -51,26 +52,28 @@ export class PackDetailComponent implements OnInit {
 
     })
 
+    this.getActiveCategory();
+    
     this.showObj.wallet_address = await this.apiService.export();
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
 
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
       } else {
-        this.toaster.warning('Please Signin / Signup first.', 'Attention!')
+        //this.toaster.warning('Please Signin / Signup first.', 'Attention!')
         // this.router.navigate([''])
       }
-      this.getActiveCategory();
+     
 
     } else {
-      this.toaster.warning('Please Connect wallet first.', 'Attention!')
+      //this.toaster.warning('Please Connect wallet first.', 'Attention!')
       // this.router.navigate([''])
     }
   }
 
   getActiveCategory() {
-
+    
+    console.log("active category is called");
     this.apiService.getActiveCategory().subscribe((res: any) => {
-
       if (res && res['data']) {
         let categoryData = res['data'];
         categoryData = categoryData['data'];
@@ -111,8 +114,11 @@ export class PackDetailComponent implements OnInit {
       return;
       // this.router.navigate([''])
     }
-    
+    let networkCheck:any=this.apiService.checkNetwork();
+    //console.log("network check is",networkCheck)
+
     const that = this;
+    
     
 
     if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
@@ -192,7 +198,7 @@ export class PackDetailComponent implements OnInit {
   
           }
         } else {
-          this.toaster.error('Quantity greator then 0.');
+          this.toaster.error('Quantity should be greater than 0.');
         }
   
         this.spinner.hide();
