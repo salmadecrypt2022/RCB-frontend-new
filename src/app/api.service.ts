@@ -315,7 +315,7 @@ export class ApiService {
     if (window.ethereum) {
 
       const timestamp = new Date().getTime();
-      const message = `RCB uses this cryptographic signature in place of a password, verifying that you are the owner of this Ethereum address - ${timestamp}`;
+      const message = `RCB uses this cryptographic signature in place of a password, verifying that you are the owner of this Ethereum address - ${from}`;
 
       console.log(window.web3.utils.fromUtf8(message));
 
