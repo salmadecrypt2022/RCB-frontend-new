@@ -5,28 +5,47 @@
         <div class="mobile-nav-wrapper">
           <a class="left__part" href="#">
             <div class="hamburger">
-              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
-                  data-icon="icon-park:hamburger-button"></span></button>
+              <button class="menu-button" onclick="toggleClass()">
+                <span
+                  class="iconify"
+                  data-icon="icon-park:hamburger-button"
+                ></span>
+              </button>
             </div>
             <div class="closed-menu">
-              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
-                  data-icon="eva:close-fill"></span></button>
+              <button class="menu-button" onclick="toggleClass()">
+                <span class="iconify" data-icon="eva:close-fill"></span>
+              </button>
             </div>
           </a>
-          <a href="#" class="middle__part text-center"><img src="../../assets/images/logo/RCB-top-logo.png" alt=""
-              class="img-fluid"></a>
-          <a class="nav-icon right__part me-2" href="#"><img src="../../assets/images/icon/user-icon.png"
-              class="img-fluid" alt=""></a>
-          <a class="nav-icon right__part" href="#"><img src="../../assets/images/icon/icon-Notification.png"
-              class="img-fluid" alt=""></a>
+          <a href="#" class="middle__part text-center"
+            ><img
+              src="../../assets/images/logo/RCB-top-logo.png"
+              alt=""
+              class="img-fluid"
+          /></a>
+          <a class="nav-icon right__part me-2" href="#"
+            ><img
+              src="../../assets/images/icon/user-icon.png"
+              class="img-fluid"
+              alt=""
+          /></a>
+          <a class="nav-icon right__part" href="#"
+            ><img
+              src="../../assets/images/icon/icon-Notification.png"
+              class="img-fluid"
+              alt=""
+          /></a>
         </div>
       </div>
 
       <div class="col-xl-6">
         <div class="navbar-first-col">
           <form class="navbar-form">
-            <input type="text" placeholder="Search Packs">
-            <button type="submit" class="fmobile"><img src="../../assets/images/icon/icon-Search.png" alt=""></button>
+            <input type="text" placeholder="Search Packs" />
+            <button type="submit" class="fmobile">
+              <img src="../../assets/images/icon/icon-Search.png" alt="" />
+            </button>
           </form>
         </div>
       </div>
@@ -37,23 +56,35 @@
 <!-- Middle content -->
 
 <div class="profile-wrapper">
-  <div class="profile__cover">
-
-  </div>
+  <div class="profile__cover"></div>
   <div class="profile__header">
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-xl-3 text-center text-md-start">
           <div class="profile__pic">
-            <img src="{{profileData && profileData.sProfilePicUrl  ? profileData.sProfilePicUrl:'../../assets/images/rcb-footer-logo.png'}}" class="img-fluid" />
+            <img
+              src="{{
+                profileData && profileData.sProfilePicUrl
+                  ? profileData.sProfilePicUrl
+                  : '../../assets/images/rcb-footer-logo.png'
+              }}"
+              class="img-fluid"
+            />
           </div>
         </div>
         <div class="col-md-6 col-xl-6 pt-2 pb-2 text-center">
           <div class="profile__info__inner">
-            <div class="profile__row justify-content-center justify-content-md-start">
+            <div
+              class="profile__row justify-content-center justify-content-md-start"
+            >
               <div class="profile__row__half">
-                <h2 class="pe-1">{{profileData && profileData.sUserName ?
-                  profileData.sUserName : ''}}</h2>
+                <h2 class="pe-1">
+                  {{
+                    profileData && profileData.sUserName
+                      ? profileData.sUserName
+                      : ""
+                  }}
+                </h2>
               </div>
               <div class="profile__row__half">
                 <ul class="score__bar">
@@ -66,28 +97,50 @@
                   </li>
                 </ul>
               </div>
-
             </div>
-            <div class="profile__row not-between justify-content-center justify-content-md-start">
+            <div
+              class="profile__row not-between justify-content-center justify-content-md-start"
+            >
               <div class="profile__row__half">
-                <h2 class="profile__username">@{{profileData && profileData.sUserName ?
-                  profileData.sUserName : ''}}</h2>
+                <h2 class="profile__username">
+                  @{{
+                    profileData && profileData.sUserName
+                      ? profileData.sUserName
+                      : ""
+                  }}
+                </h2>
               </div>
               <div class="ps-4 profile__row__half">
                 <div class="profile__wallet__address">
-                  {{profileData && profileData.sWalletAddress ? profileData.sWalletAddress : ''}}
+                  {{
+                    profileData && profileData.sWalletAddress
+                      ? profileData.sWalletAddress
+                      : ""
+                  }}
                 </div>
               </div>
             </div>
             <div
-              class="profile__row not-between justify-content-center justify-content-md-start text-center text-md-start short__info">
-              <p class="color-ccc">{{profileData && profileData.sBio ? profileData.sBio : ''}}</p>
+              class="profile__row not-between justify-content-center justify-content-md-start text-center text-md-start short__info"
+            >
+              <p class="color-ccc">
+                {{ profileData && profileData.sBio ? profileData.sBio : "" }}
+              </p>
             </div>
-            <div class="profile__row not-between justify-content-center justify-content-md-start">
+            <div
+              class="profile__row not-between justify-content-center justify-content-md-start"
+            >
               <div class="profile__row__half color-white">
-                <h2 class="profile_join_date">Joined  {{profileData && profileData.sCreated &&
-                  profileData.sCreated != undefined ?
-                  (profileData.sCreated | date: 'medium'):0}}</h2>
+                <h2 class="profile_join_date">
+                  Joined
+                  {{
+                    profileData &&
+                    profileData.sCreated &&
+                    profileData.sCreated != undefined
+                      ? (profileData.sCreated | date : "medium")
+                      : 0
+                  }}
+                </h2>
               </div>
               <div class="ps-4 profile__row__half">
                 <div class="profile_join_date color-white">
@@ -98,109 +151,115 @@
           </div>
         </div>
         <div class="col-md-3 col-xl-3 pt-0 pt-md-2 pb-2 text-center">
-          <a data-bs-toggle="modal" data-bs-target="#Modal-sign-up" href="javascript:;" class="btn btn-rcb-gold">Edit Profile</a>
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#Modal-sign-up"
+            href="javascript:;"
+            class="btn btn-rcb-gold"
+            >Edit Profile</a
+          >
         </div>
       </div>
     </div>
   </div>
-  <div class="profile__body">
-
-  </div>
+  <div class="profile__body"></div>
 </div>
 
 <!--  Middle content -->
-
-
 
 <section class="filter mt-5">
   <div class="container">
     <p class="first-para">Filter By:</p>
     <div class="row gx-4">
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-1.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-1.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-2.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-2.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-3.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-3.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-4.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-4.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -210,117 +269,170 @@
 <section class="filter mt-5">
   <div class="container">
     <div class="row gx-4">
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-1.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-1.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-6 col-lg-6 col-xl-3 d-flex align-items-center justify-content-center"
+      >
         <div class="player-profile-card me-auto ms-auto">
-
-          <div class="profile-card" style="width: 18rem;">
-
+          <div class="profile-card" style="width: 18rem">
             <div class="profile-img">
               <div class="img-container">
-                <img src="../../assets/images/profile-palyer-pic-2.png" class="img-fluid" alt="">
+                <img
+                  src="../../assets/images/profile-palyer-pic-2.png"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
             </div>
             <div class="profile-body">
               <h5 class="">Player Name</h5>
-              <p class="">Moments description - Date, Set Name
-                (Series) Etc</p>
+              <p class="">Moments description - Date, Set Name (Series) Etc</p>
               <p class="last-para">Common #10253 / 4000+</p>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </section>
 
-
 <!-- Modal-1 -->
-<div class="modal sign-up-modal" id="Modal-sign-up" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div
+  class="modal sign-up-modal"
+  id="Modal-sign-up"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-
-      <button type="button" class="close" data-bs-dismiss="modal"><span class="iconify"
-          data-icon="carbon:close"></span></button>
+      <button type="button" class="close" data-bs-dismiss="modal">
+        <span class="iconify" data-icon="carbon:close"></span>
+      </button>
 
       <h6>Edit Profile</h6>
 
       <form name="editProfileform" [formGroup]="editProfileform">
         <div class="form-group position-relative">
           <p>User name</p>
-          <input type="text" placeholder="Enter your user name"
-            [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sUserName.errors }"
-            formControlName="sUserName">
-          <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sUserName.errors">
-            <span *ngIf="editProfileform.controls.sUserName.errors?.required">This
-              field is required.</span>
-
+          <input
+            type="text"
+            placeholder="Enter your user name"
+            [ngClass]="{
+              'is-invalid':
+                submitted1 && editProfileform.controls.sUserName.errors
+            }"
+            formControlName="sUserName"
+          />
+          <div
+            class="nft-err"
+            *ngIf="submitted1 && editProfileform.controls.sUserName.errors"
+          >
+            <span *ngIf="editProfileform.controls.sUserName.errors?.required"
+              >This field is required.</span
+            >
           </div>
         </div>
         <div class="form-group position-relative">
           <p>Email Address</p>
-          <input type="email" [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sEmail.errors }"
-            formControlName="sEmail">
-          <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sEmail.errors">
-            <span *ngIf="editProfileform.controls.sEmail.errors?.required">This
-              field is required.</span>
-
+          <input
+            type="email"
+            [ngClass]="{
+              'is-invalid': submitted1 && editProfileform.controls.sEmail.errors
+            }"
+            formControlName="sEmail"
+            required
+            ngModel
+            email
+          />
+          <div
+            class="nft-err"
+            *ngIf="submitted1 && editProfileform.controls.sEmail.errors"
+          >
+            <span *ngIf="editProfileform.controls.sEmail.errors?.email"
+              >Invalid Email.</span
+            >
+            <span *ngIf="editProfileform.controls.sEmail.errors?.required"
+              >This field is required.</span
+            >
           </div>
         </div>
         <div class="form-group position-relative">
           <p>Upload Image</p>
-          <input type="file" accept=".png,.jpg,.jpeg" (change)="onSelectDocument($event)">
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            (change)="onSelectDocument($event)"
+          />
         </div>
         <div class="form-group position-relative">
           <p>Wallet address</p>
-          <input type="text" placeholder="Enter your Wallet address"
-            [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sWalletAddress.errors }"
-            formControlName="sWalletAddress" readonly>
-          <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sWalletAddress.errors">
-            <span *ngIf="editProfileform.controls.sWalletAddress.errors?.required">This
-              field is required.</span>
-
+          <input
+            type="text"
+            placeholder="Enter your Wallet address"
+            [ngClass]="{
+              'is-invalid':
+                submitted1 && editProfileform.controls.sWalletAddress.errors
+            }"
+            formControlName="sWalletAddress"
+            readonly
+          />
+          <div
+            class="nft-err"
+            *ngIf="submitted1 && editProfileform.controls.sWalletAddress.errors"
+          >
+            <span
+              *ngIf="editProfileform.controls.sWalletAddress.errors?.required"
+              >This field is required.</span
+            >
           </div>
         </div>
         <div class="form-group position-relative">
           <p>Bio</p>
-          <input type="text" placeholder="Enter your Bio"
-            [ngClass]="{ 'is-invalid': submitted1 && editProfileform.controls.sBio.errors }" formControlName="sBio">
-          <div class="nft-err" *ngIf="submitted1 && editProfileform.controls.sBio.errors">
-            <span *ngIf="editProfileform.controls.sBio.errors?.required">This
-              field is required.</span>
-
+          <input
+            type="text"
+            placeholder="Enter your Bio"
+            [ngClass]="{
+              'is-invalid': submitted1 && editProfileform.controls.sBio.errors
+            }"
+            formControlName="sBio"
+          />
+          <div
+            class="nft-err"
+            *ngIf="submitted1 && editProfileform.controls.sBio.errors"
+          >
+            <span *ngIf="editProfileform.controls.sBio.errors?.required"
+              >This field is required.</span
+            >
           </div>
         </div>
-    </form>
+      </form>
 
-
-
-      <button class="sign-up" type="submit" (click)="onClickSubmit()">Save</button>
+      <button class="sign-up" type="submit" (click)="onClickSubmit()">
+        Save
+      </button>
 
       <!-- <a data-bs-toggle="modal" data-bs-target="#Modal-sign-in" href="#">Already have an account? Sign In</a> -->
 
