@@ -42,7 +42,7 @@ export class ApiService {
       // window.web3 = new Web3(window.Web3.givenProvider);
 
       window.ethereum.on("accountsChanged", (accounts: string[]) => {
-         console.log("2222")
+        console.log("2222")
         if (accounts.length) {
           if (this.userAccount != accounts[0]) {
 
@@ -139,11 +139,11 @@ export class ApiService {
       return {};
     }
   }
-  
-  async checkNetwork(){
+
+  async checkNetwork() {
     if (window.ethereum) {
       return new Promise(async (resolve, reject) => {
-        
+
         try {
           // check if the chain to connect to is installed
           await window.ethereum.request({
@@ -155,9 +155,8 @@ export class ApiService {
           // if it is not, then install it into the user MetaMask
           if (error.code === 4902) {
             try {
-              let networkdata:any=[];
-              switch(Web3.utils.toHex(environment.chainId))
-              {
+              let networkdata: any = [];
+              switch (Web3.utils.toHex(environment.chainId)) {
                 case "0x13881":
                   networkdata = [
                     {
@@ -199,15 +198,15 @@ export class ApiService {
                 method: 'wallet_addEthereumChain',
                 params: networkdata
               });
-            } catch (addError) { 
+            } catch (addError) {
               console.error(addError);
             }
-          }else if (error.code === 4001){
-            this.toaster.error("Please switch to correct network." , 'Error!');
-           
+          } else if (error.code === 4001) {
+            this.toaster.error("Please switch to correct network.", 'Error!');
+
             resolve([]);
             this.onClickRefresh();
-          }else{
+          } else {
             console.error(error);
             return;
           }
@@ -223,7 +222,7 @@ export class ApiService {
           if (err && err.code == 4001) {
             this.toaster.error(err['message'], 'Error!');
           }
-          
+
         });
 
         if (accounts && accounts.length) {
@@ -248,8 +247,8 @@ export class ApiService {
 
     if (window.ethereum) {
       return new Promise(async (resolve, reject) => {
-        
-     
+
+
 
         /*********** Testtt () */
 
@@ -261,7 +260,7 @@ export class ApiService {
           if (err && err.code == 4001) {
             this.toaster.error(err['message'], 'Error!');
           }
-          
+
         });
 
         if (accounts && accounts.length) {
@@ -400,94 +399,94 @@ export class ApiService {
   }
 
 
-  
+
   createTransaction(data: any) {
     return this.http.post(this.URL + '/transaction/create', data, { headers: { 'Authorization': this.getHeaders() } });
   }
-  
-  
-//  # create order based on the reservation id
-//curl --request POST \
-//     --url https://api.testwyre.com/v3/debitcard/process/partner \
-//     --header 'Accept: application/json' \
-//     --header 'Authorization: Bearer SK-86Z8FYFB-UTA2RDCN-HCZBFT2V-xxx' \
-//     --header 'Content-Type: application/json' \
-//     --data '
-//data={
-//     "debitCard": {
-//          "number": "4111111111111111",
-//          "year": "2023",
-//          "month": "10",
-//          "cvv": "555"
-//     },
-//     "address": {
-//          "street1": "1234 Test Ave",
-//          "city": "Los Angeles",
-//          "state": "CA",
-//          "postalCode": "91423",
-//          "country": "US"
-//     },
-//     "reservationId": "2J97BPRFDQ2Y4CJLE8BV",
-//     "amount": "10",
-//     "sourceCurrency": "USD",
-//     "destCurrency": "MATIC",
-//     "dest": "account:AC_WPYM69C7MJG ",
-//     "referrerAccountId": "AC_WPYM69C7MJG",
-//     "givenName": "Crash",
-//     "familyName": "Bandicoot",
-//     "email": "mosajjid.khan@gmail.com",
-//     "ipAddress": "61.95.235.164",
-//     "phone": "+14158122223"
-//}
-//'
-//# response
-//{
-//  "id": "WO_WVZG4WC6E9",
-//  "createdAt": 1648796904745,
-//  "owner": "account:AC_CBLAE64LCTX",
-//  "status": "RUNNING_CHECKS",
-//  "orderType": "DOMESTIC",
-//  "sourceAmount": 15,
-//  "purchaseAmount": 10,
-//  "sourceCurrency": "USD",
-//  "destCurrency": "USD",
-//  "transferId": null,
-//  "dest": "account:AC_YC3NT6GEZ8U ",
-//  "authCodesRequested": false,
-//  "blockchainNetworkTx": null,
-//  "accountId": "AC_CBLAE64LCTX",
-//  "paymentMethodName": null
-//}
-  
-  
+
+
+  //  # create order based on the reservation id
+  //curl --request POST \
+  //     --url https://api.testwyre.com/v3/debitcard/process/partner \
+  //     --header 'Accept: application/json' \
+  //     --header 'Authorization: Bearer SK-86Z8FYFB-UTA2RDCN-HCZBFT2V-xxx' \
+  //     --header 'Content-Type: application/json' \
+  //     --data '
+  //data={
+  //     "debitCard": {
+  //          "number": "4111111111111111",
+  //          "year": "2023",
+  //          "month": "10",
+  //          "cvv": "555"
+  //     },
+  //     "address": {
+  //          "street1": "1234 Test Ave",
+  //          "city": "Los Angeles",
+  //          "state": "CA",
+  //          "postalCode": "91423",
+  //          "country": "US"
+  //     },
+  //     "reservationId": "2J97BPRFDQ2Y4CJLE8BV",
+  //     "amount": "10",
+  //     "sourceCurrency": "USD",
+  //     "destCurrency": "MATIC",
+  //     "dest": "account:AC_WPYM69C7MJG ",
+  //     "referrerAccountId": "AC_WPYM69C7MJG",
+  //     "givenName": "Crash",
+  //     "familyName": "Bandicoot",
+  //     "email": "mosajjid.khan@gmail.com",
+  //     "ipAddress": "61.95.235.164",
+  //     "phone": "+14158122223"
+  //}
+  //'
+  //# response
+  //{
+  //  "id": "WO_WVZG4WC6E9",
+  //  "createdAt": 1648796904745,
+  //  "owner": "account:AC_CBLAE64LCTX",
+  //  "status": "RUNNING_CHECKS",
+  //  "orderType": "DOMESTIC",
+  //  "sourceAmount": 15,
+  //  "purchaseAmount": 10,
+  //  "sourceCurrency": "USD",
+  //  "destCurrency": "USD",
+  //  "transferId": null,
+  //  "dest": "account:AC_YC3NT6GEZ8U ",
+  //  "authCodesRequested": false,
+  //  "blockchainNetworkTx": null,
+  //  "accountId": "AC_CBLAE64LCTX",
+  //  "paymentMethodName": null
+  //}
+
+
   //https://api.testwyre.com/v3/accounts
-  
-  
+
+
   //curl --request POST \
   //--url https://api.testwyre.com/v3/orders/reserve \
   //--header 'Accept: application/json' \
   //--header 'Authorization: Bearer SK-86Z8FYFB-UTA2RDCN-HCZBFT2V-xxx' \
   //--header 'Content-Type: application/json'
-  
+
   //createTransaction(data: any) {
   //  return this.http.post("https://api.testwyre.com/v3/orders/reserve",{headers: { 'Authorization':"Bearer 9d4cd4ea969b42a0a712c7002ca215589c56ceb24c2cab1a9ff2acbb2678"} });
   //}
-  
-//createTransaction() {
-//    return this.http.post("https://api.testwyre.com/v3/debitcard/process/partner",this.data ,{ headers: { 'Authorization': "Bearer 9d4cd4ea969b42a0a712c7002ca215589c56ceb24c2cab1a9ff2acbb2678" } });
-//  }
+
+  //createTransaction() {
+  //    return this.http.post("https://api.testwyre.com/v3/debitcard/process/partner",this.data ,{ headers: { 'Authorization': "Bearer 9d4cd4ea969b42a0a712c7002ca215589c56ceb24c2cab1a9ff2acbb2678" } });
+  //  }
   //createTransaction(data: any) {
   //  return this.http.post("https://api.testwyre.com/v3/accounts", {"type":"INDIVIDUAL","country": "US","subaccount": true,"profileFields":[{"fieldId": "individualLegalName","value": "MOSAJJID KHAN"},{"fieldId": "individualEmail","value": "mosajjid.khan@gmail.com"},{"fieldId": "individualResidenceAddress","value": {"street1": "1 Market St","street2": "Suite 402","city": "San Francisco","state": "CA","postalCode": "94105","country": "US"}}]},{ headers: { 'Authorization': "Bearer 9d4cd4ea969b42a0a712c7002ca215589c56ceb24c2cab1a9ff2acbb2678" } });
   //}
   listTransaction(data) {
-    return this.http.post(this.URL + '/transaction/listByUser',data, { headers: { 'Authorization': this.getHeaders() } });
+    return this.http.post(this.URL + '/transaction/listByUser', data, { headers: { 'Authorization': this.getHeaders() } });
   }
   getPrice() {
-    return this.http.get( 'https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd', { headers: { 'Authorization': this.getHeaders() } });
+    return this.http.get('https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd', { headers: { 'Authorization': this.getHeaders() } });
   }
 
   subscribe(data: any) {
     return this.http.post(this.URL + '/user/subscribe', data, { headers: { 'Authorization': this.getHeaders() } });
   }
- 
+
 }
