@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAA;EACT,YAAY,EAAE,OAAO;EACrB,kBAAkB,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAK,CAAC,wBAAuB;EACvD,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAK,CAAC,wBAAuB;CAChD;;AACD,AAAA,QAAQ,CAAC,IAAI,CAAC;EACZ,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,OAAO;CACf",
+    "sources": [
+        "pack-detail.component.scss"
+    ],
+    "names": [],
+    "file": "pack-detail.component.css"
+}
