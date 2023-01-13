@@ -42,6 +42,7 @@ export class ApiService {
       // window.web3 = new Web3(window.Web3.givenProvider);
 
       window.ethereum.on("accountsChanged", (accounts: string[]) => {
+         console.log("2222")
         if (accounts.length) {
           if (this.userAccount != accounts[0]) {
 
@@ -57,12 +58,12 @@ export class ApiService {
       });
 
       window.ethereum.on('chainChanged', function () {
-        if (localStorage.removeItem('Authorization') != null) {
+        // if (localStorage.removeItem('Authorization') != null) {
 
-        }
-        // logout();
-        else
-          window.location.href = '/';
+        // }
+        // // logout();
+        // else
+        //   window.location.href = '/';
       });
     }
     // Legacy dapp browsers...
