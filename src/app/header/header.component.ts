@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   };
 
 
-   constructor(private router: Router,
+  constructor(private router: Router,
     private _route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private toaster: ToastrService,
@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
     this.apiService.connect().then((data: any) => {
       this.spinner.hide();
       if (data && data != 'error') {
-        this.toaster.success('User Connected Successfully','Success!');
+        this.toaster.success('User Connected Successfully', 'Success!');
         this.onClickRefresh();
       }
 
@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
       this.spinner.hide();
 
       if (er && er.code) {
-        this.toaster.error(er.message,'Error!');
+        this.toaster.error(er.message, 'Error!');
       }
     })
   }
@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit {
     this.spinner.hide();
 
   }
-  
+
   onClickRefresh() {
     window.location.reload();
   }
@@ -109,5 +109,5 @@ export class HeaderComponent implements OnInit {
     this.onClickRefresh()
   }
 
-  
+
 }
