@@ -1,0 +1,33 @@
+.wrapper .description, .wrapper .times {
+    display: grid;
+    grid-template-columns: repeat(4, calc(25% - 8px));
+    grid-column-gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+}
+.wrapper .description > p {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+.wrapper .times p {
+    letter-spacing: -5px;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    margin-top: 16px;
+}
