@@ -150,7 +150,19 @@ export class PackDetailComponent implements OnInit {
             
            
             let maxTokenMint=await NFTinstance.methods.totalTokensMintedPerCategory(that.showObj.category_id).call();
-            if(parseInt(maxTokenMint)==this.showObj.categoryTokencap){
+            console.log("total token minted is---->",parseInt(maxTokenMint));
+            console.log("total token minted is---->",parseInt(res.quantity));
+            let tokensLeft:any=parseInt(this.showObj.categoryTokencap)-parseInt(maxTokenMint);
+            console.log("tokens left are----->",tokensLeft);
+            
+            if(parseInt(res.quantity)>parseInt(tokensLeft)){
+              this.toaster.error(`Only ${tokensLeft} tokens are left in this category`, 'Error!');
+              this.spinner.hide();
+            
+              return;
+            }
+            
+            if(parseInt(maxTokenMint)+parseInt(res.quantity)>=parseInt(this.showObj.categoryTokencap)){
               this.toaster.error("All tokens got minted for this category!", 'Error!');
               this.spinner.hide();
             
