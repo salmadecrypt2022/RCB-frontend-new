@@ -5,28 +5,47 @@
         <div class="mobile-nav-wrapper">
           <a class="left__part" href="#">
             <div class="hamburger">
-              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
-                  data-icon="icon-park:hamburger-button"></span></button>
+              <button class="menu-button" onclick="toggleClass()">
+                <span
+                  class="iconify"
+                  data-icon="icon-park:hamburger-button"
+                ></span>
+              </button>
             </div>
             <div class="closed-menu">
-              <button class="menu-button" onclick="toggleClass()"><span class="iconify"
-                  data-icon="eva:close-fill"></span></button>
+              <button class="menu-button" onclick="toggleClass()">
+                <span class="iconify" data-icon="eva:close-fill"></span>
+              </button>
             </div>
           </a>
-          <a href="#" class="middle__part text-center"><img src="../../assets/images/logo/RCB-top-logo.png" alt=""
-              class="img-fluid"></a>
-          <a class="nav-icon right__part me-2" href="#"><img src="../../assets/images/icon/user-icon.png"
-              class="img-fluid" alt=""></a>
-          <a class="nav-icon right__part" href="#"><img src="../../assets/images/icon/icon-Notification.png"
-              class="img-fluid" alt=""></a>
+          <a href="#" class="middle__part text-center"
+            ><img
+              src="../../assets/images/logo/RCB-top-logo.png"
+              alt=""
+              class="img-fluid"
+          /></a>
+          <a class="nav-icon right__part me-2" href="#"
+            ><img
+              src="../../assets/images/icon/user-icon.png"
+              class="img-fluid"
+              alt=""
+          /></a>
+          <a class="nav-icon right__part" href="#"
+            ><img
+              src="../../assets/images/icon/icon-Notification.png"
+              class="img-fluid"
+              alt=""
+          /></a>
         </div>
       </div>
 
       <div class="col-xl-6">
         <div class="navbar-first-col">
           <form class="navbar-form">
-            <input type="text" placeholder="Search Packs">
-            <button type="submit" class="fmobile"><img src="../../assets/images/icon/icon-Search.png" alt=""></button>
+            <input type="text" placeholder="Search Packs" />
+            <button type="submit" class="fmobile">
+              <img src="../../assets/images/icon/icon-Search.png" alt="" />
+            </button>
           </form>
         </div>
       </div>
@@ -37,92 +56,130 @@
 <section class="packs-detail mt-3 mt-md-5">
   <div class="container">
     <a href="#" class="first-link">
-      <p class="first-parra"><span class="iconify" data-icon="akar-icons:arrow-left"></span> Packs</p>
+      <p class="first-parra">
+        <span class="iconify" data-icon="akar-icons:arrow-left"></span> Packs
+      </p>
     </a>
 
     <div class="row mt-4 mt-md-5">
-
       <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-3 first-detail-col">
-        <a  class="pack-detail-link">NOW ON SALE</a>
+        <a class="pack-detail-link">NOW ON SALE</a>
 
         <h4 class="mt-3">BALL PACK NAME / DETAIL</h4>
 
-        <p class="mt-4">Category {{showObj.category_name ? showObj.category_name :0}}</p>
+        <p class="mt-4">
+          Category {{ showObj.category_name ? showObj.category_name : 0 }}
+        </p>
 
-        <p>TotalSupply {{showObj.categoryTokencap ? showObj.categoryTokencap :0}}</p>
-        <p>Contain {{showObj.perAddress ? showObj.perAddress :0}} Per Address</p>
+        <p>
+          Total Supply
+          {{ showObj.categoryTokencap ? showObj.categoryTokencap : 0 }}
+        </p>
+        <p>
+          Contain {{ showObj.perAddress ? showObj.perAddress : 0 }} Per Address
+        </p>
         <div class="pack-price mt-4">
-          <h4>{{showObj.price ? showObj.price :0}}</h4>
+          <h4>{{ showObj.price ? showObj.price : 0 }}</h4>
           <p>MATIC</p>
         </div>
 
         <div class="watch-moments">
-          <img src="../../assets/images/team-pic-white-dress.png" class="img-fluid" alt="">
+          <img
+            src="../../assets/images/team-pic-white-dress.png"
+            class="img-fluid"
+            alt=""
+          />
 
-          <p>Watch Moments </p>
+          <p>Watch Moments</p>
         </div>
       </div>
 
       <div class="col-md-8 col-lg-8 col-xl-8 col-xxl-6 second-detail-col">
-        <img src="../../assets/images/ball-unscreen.gif" class="img-fluid" alt="">
+        <img
+          src="../../assets/images/ball-unscreen.gif"
+          class="img-fluid"
+          alt=""
+        />
       </div>
 
-      <div class="col-md-12  col-xl-12 col-xxl-3 third-detail-col">
+      <div class="col-md-12 col-xl-12 col-xxl-3 third-detail-col">
         <h6>Pack Details</h6>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies quam sodales diam enim, facilisis
-          aliquet et. Viverra porttitor aliquet integer viverra. Sed vel at sit sodales id phasellus eu eu. Lectus
-          aliquam at feugiat tincidunt in. Enim, pretium tellus quis faucibus risus, aliquam adipiscing eget. Eu, id
-          duis sit turpis pulvinar a, viverra nisl risus. Lacus, faucibus non placerat facilisis iaculis non tristique
-          viverra. Nec tristique ac nibh eget nisi condimentum. Ut turpis tristique metus turpis ut arcu, tempor ut.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies
+          quam sodales diam enim, facilisis aliquet et. Viverra porttitor
+          aliquet integer viverra. Sed vel at sit sodales id phasellus eu eu.
+          Lectus aliquam at feugiat tincidunt in. Enim, pretium tellus quis
+          faucibus risus, aliquam adipiscing eget. Eu, id duis sit turpis
+          pulvinar a, viverra nisl risus. Lacus, faucibus non placerat facilisis
+          iaculis non tristique viverra. Nec tristique ac nibh eget nisi
+          condimentum. Ut turpis tristique metus turpis ut arcu, tempor ut.
+        </p>
 
-        <div class="join-now mt-5" *ngIf="showObj.status && showObj.status == 'ongoing'">
-          <a data-bs-toggle="modal" data-bs-target="#Modal-sign-in" href="javascript:;" class="join-link">Buy now</a>
-          <a href="#"><span class="iconify" data-icon="ant-design:heart-outlined"></span></a>
+        <div
+          class="join-now mt-5"
+          *ngIf="showObj.status && showObj.status == 'ongoing'"
+        >
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#Modal-sign-in"
+            href="javascript:;"
+            class="join-link"
+            >Buy now</a
+          >
+          <a href="#"
+            ><span class="iconify" data-icon="ant-design:heart-outlined"></span
+          ></a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="watch-opening  mt-5">
+<section class="watch-opening mt-5">
   <div class="container">
     <h2 class="text-center">WATCH OPENINGS</h2>
   </div>
   <div class="comtainer d-flex align-items-center">
-
-
     <div class="col-md-3"></div>
 
     <div class="col-md-6">
       <div class="latest-pack-videos">
-
         <div class="relative-space">
           <div class="m-3">
             <video width="100%" height="300" loop autoplay muted>
-              <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/ball-rcb-mp4.mp4" type="video/mp4">
+              <source
+                src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/ball-rcb-mp4.mp4"
+                type="video/mp4"
+              />
               <!-- <source src="movie.ogg" type="video/ogg"> -->
-            Your browser does not support the video tag.
-          </video>
-          </div>          
-        </div>
-
-        <div class="relative-space">
-          <div class="m-3">
-            <video width="100%" height="300" loop autoplay muted>
-              <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/red-jersey-mp4.mp4" type="video/mp4">
-              <!-- <source src="movie.ogg" type="video/ogg"> -->
-            Your browser does not support the video tag.
-          </video>
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
         <div class="relative-space">
           <div class="m-3">
             <video width="100%" height="300" loop autoplay muted>
-              <source src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/blue-jersey-mp4.mp4" type="video/mp4">
+              <source
+                src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/red-jersey-mp4.mp4"
+                type="video/mp4"
+              />
               <!-- <source src="movie.ogg" type="video/ogg"> -->
-            Your browser does not support the video tag.
-          </video>
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+
+        <div class="relative-space">
+          <div class="m-3">
+            <video width="100%" height="300" loop autoplay muted>
+              <source
+                src="https://rcb.mypinata.cloud/ipfs/QmRHe7arRcKzeJqZeZvyzuFdDcL5aEgBJifqW6rqWtX2dC/blue-jersey-mp4.mp4"
+                type="video/mp4"
+              />
+              <!-- <source src="movie.ogg" type="video/ogg"> -->
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
@@ -137,38 +194,51 @@
         <div class="relative-space">
           <img class="img-fluid" src="../../assets/images/watch-opeing-3.png" />
         </div> -->
-
       </div>
     </div>
 
-    <div class="col-md-3">
-
-    </div>
+    <div class="col-md-3"></div>
   </div>
 </section>
 
-
-<div class="modal sign-in-modal" id="Modal-sign-in" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div
+  class="modal sign-in-modal"
+  id="Modal-sign-in"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-
-      <button type="button" class="close" data-bs-dismiss="modal"><span class="iconify"
-          data-icon="carbon:close"></span></button>
+      <button type="button" class="close" data-bs-dismiss="modal">
+        <span class="iconify" data-icon="carbon:close"></span>
+      </button>
 
       <h6>Buy now</h6>
       <form name="buyForm" [formGroup]="buyForm">
         <div class="form-group position-relative">
           <p>Quantity</p>
-          <input type="number" placeholder="Enter your quantity"
-            [ngClass]="{ 'is-invalid': submitted1 && buyForm.controls.quantity.errors }" formControlName="quantity">
-          <div class="nft-err" *ngIf="submitted1 && buyForm.controls.quantity.errors">
-            <span *ngIf="buyForm.controls.quantity.errors?.required">This
-              field is required.</span>
+          <input
+            type="number"
+            placeholder="Enter your quantity"
+            [ngClass]="{
+              'is-invalid': submitted1 && buyForm.controls.quantity.errors
+            }"
+            formControlName="quantity"
+          />
+          <div
+            class="nft-err"
+            *ngIf="submitted1 && buyForm.controls.quantity.errors"
+          >
+            <span *ngIf="buyForm.controls.quantity.errors?.required"
+              >This field is required.</span
+            >
           </div>
         </div>
 
-        <button class="sign-up" type="submit" (click)="onClickBuy()">Buy</button>
+        <button class="sign-up" type="submit" (click)="onClickBuy()">
+          Buy
+        </button>
       </form>
     </div>
   </div>
