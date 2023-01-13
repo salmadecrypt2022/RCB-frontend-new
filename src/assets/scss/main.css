@@ -2692,6 +2692,34 @@ footer .forth-col .wrapper button {
   }
 }
 
+.menu-wrapper .menu-list li a img {
+  vertical-align: middle !important;
+  max-height: 16px !important;
+  display: inline-block !important;
+  margin: -5px 5px 0 15px !important;
+  padding: 0 !important;
+}
+
+.menu-wrapper li {
+  padding: 0 !important;
+}
+
+.menu-wrapper li a.menu-link {
+  padding: 0.9rem 0 !important;
+  float: left;
+  width: 100%;
+  margin: 10px 0 0 0 !important;
+}
+
+.menu-wrapper li.active a.menu-link, .menu-wrapper li a.menu-link:hover {
+  background-color: #E02834 !important;
+}
+
+.live-clock.mt-3.ng-star-inserted {
+  float: left;
+  width: 100%;
+}
+
 @font-face {
   font-family: 'Air';
   src: url(../fonts/airstrike.ttf);

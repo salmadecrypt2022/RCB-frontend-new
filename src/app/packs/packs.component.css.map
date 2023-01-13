@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAA;EACN,MAAM,EAAE,OAAO;CAClB",
+    "sources": [
+        "packs.component.scss"
+    ],
+    "names": [],
+    "file": "packs.component.css"
+}

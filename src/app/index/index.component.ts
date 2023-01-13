@@ -72,11 +72,17 @@ export class IndexComponent implements OnInit {
     this.date = new Date();
     this.now = this.date.getTime();
 
-    let daysss = Math.floor(this.difference);
+    let daysss = Math.floor(this.difference).toString();
     let hourss = 23 - this.date.getHours();
     let minutesss = 60 - this.date.getMinutes();
     let secondsss = 60 - this.date.getSeconds();
-    this.days.nativeElement.innerText = daysss;
+    if(daysss !== undefined && daysss !== "NaN"){
+      this.days.nativeElement.innerText = daysss;
+      // this.days.nativeElement.innerText = "--";
+    }else{
+      this.days.nativeElement.innerText = "--";
+    }
+    
     this.hours.nativeElement.innerText = hourss.toString().padStart(2, '0');
     this.minutes.nativeElement.innerText = minutesss.toString().padStart(2, '0');
     this.seconds.nativeElement.innerText = secondsss.toString().padStart(2, '0');
