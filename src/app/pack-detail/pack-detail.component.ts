@@ -19,9 +19,9 @@ export class PackDetailComponent implements OnInit {
     category_id: 0,
     price: 0,
     perAddress: 0,
-    categoryTokencap: 0, 
-    category_name:'',
-    status:''
+    categoryTokencap: 0,
+    category_name: '',
+    status: ''
   };
   
   TotalTokensUserMint:any;
@@ -43,7 +43,7 @@ export class PackDetailComponent implements OnInit {
   async ngOnInit() {
     console.log("pack details ngonint is called");
     this.buildCreateForm1();
-   
+
 
     let scripts = [];
     scripts = [
@@ -55,7 +55,7 @@ export class PackDetailComponent implements OnInit {
     })
 
     this.getActiveCategory();
-    
+
     this.showObj.wallet_address = await this.apiService.export();
     var NFTinstance = await this.apiService.exportInstance(environment.address, environment.ABI);
     this.TotalTokensUserMint=await NFTinstance.methods.maxTokensPerUser().call();
@@ -70,7 +70,7 @@ export class PackDetailComponent implements OnInit {
         //this.toaster.warning('Please Signin / Signup first.', 'Attention!')
         // this.router.navigate([''])
       }
-     
+
 
     } else {
       //this.toaster.warning('Please Connect wallet first.', 'Attention!')
@@ -79,7 +79,7 @@ export class PackDetailComponent implements OnInit {
   }
 
   getActiveCategory() {
-    
+
     console.log("active category is called");
     this.apiService.getActiveCategory().subscribe((res: any) => {
       if (res && res['data']) {
@@ -93,9 +93,9 @@ export class PackDetailComponent implements OnInit {
           price: categoryData.sPrice ? categoryData.sPrice : 0,
           perAddress: categoryData.maxPerAddress ? categoryData.maxPerAddress : 0,
           categoryTokencap: categoryData.categoryTokencap ? categoryData.categoryTokencap : 0,
-          wallet_address:this.showObj.wallet_address,
-          category_name:categoryData.category_name ? categoryData.category_name : 0,
-          status : categoryData.status ? categoryData.status : 0,
+          wallet_address: this.showObj.wallet_address,
+          category_name: categoryData.category_name ? categoryData.category_name : 0,
+          status: categoryData.status ? categoryData.status : 0,
         };
       }
     }, (err: any) => {
@@ -115,23 +115,23 @@ export class PackDetailComponent implements OnInit {
   }
   // cat , quantity
   async onClickBuy() {
-    
+
     if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
     } else {
       this.toaster.warning('Please Signin / Signup first.', 'Attention!');
       return;
       // this.router.navigate([''])
     }
-    let networkCheck:any=await this.apiService.checkNetwork();
+    let networkCheck: any = await this.apiService.checkNetwork();
     //console.log("network check is",networkCheck)
     this.showObj.wallet_address = await this.apiService.export();
 
     const that = this;
-    
-    
+
+
 
     if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
-      
+
       this.spinner.show();
       this.submitted1 = true;
       if (this.buyForm.invalid) {
@@ -139,16 +139,16 @@ export class PackDetailComponent implements OnInit {
         return;
       } else {
         let res = this.buyForm.value;
-  
+
         if (res.quantity && parseInt(res.quantity) > 0) {
           var NFTinstance = await this.apiService.exportInstance(environment.address, environment.ABI);
-  
+
           if (NFTinstance && NFTinstance != undefined) {
-  
+
             const that = this;
             //this.toaster.error("You'!", 'Error!');
-            
-            console.log("wallet address 1---->",that.showObj.wallet_address);
+
+            console.log("wallet address 1---->", that.showObj.wallet_address);
             //let balance;
             console.log("wallet address is- 2--->",this.showObj.wallet_address);
             
@@ -160,7 +160,10 @@ export class PackDetailComponent implements OnInit {
             let maxTokensPerUser=await NFTinstance.methods.maxTokensPerUser().call();
             let tokensLeftTOMint=maxTokensPerUser-totalTokenBalance
             
-            if(totalTokenBalance+res.quantity>maxTokensPerUser){
+            console.log("total token balance max tokens per user",totalTokenBalance);
+            console.log("res n quantitiy is---->",parseInt(res.quantity))
+            
+            if(parseInt(totalTokenBalance)+parseInt(res.quantity)>parseInt(maxTokensPerUser)){
               this.toaster.error(`Only ${tokensLeftTOMint} tokens are left for you to mint`, 'Error!');
               this.spinner.hide();
             
@@ -176,37 +179,37 @@ export class PackDetailComponent implements OnInit {
             if(parseInt(res.quantity)>parseInt(tokensLeft)){
               this.toaster.error(`Only ${tokensLeft} tokens are left in this category`, 'Error!');
               this.spinner.hide();
-            
+
               return;
             }
-            
-            if(parseInt(maxTokenMint)+parseInt(res.quantity)>parseInt(this.showObj.categoryTokencap)){
+
+            if (parseInt(maxTokenMint) + parseInt(res.quantity) > parseInt(this.showObj.categoryTokencap)) {
               this.toaster.error("All tokens got minted for this category!", 'Error!');
               this.spinner.hide();
-            
+
               return;
             }
-            let balance=await NFTinstance.methods.tokensMintedPerCategoryPerAddress(that.showObj.wallet_address,that.showObj.category_id).call();
-            console.log("balance is----->",balance);
-            if(parseInt(res.quantity)+parseInt(balance)>parseInt(this.showObj.perAddress)){
-              console.log("balance is----->",balance);
-              this.toaster.error("Amount Exceed Max per wallet address!", 'Error!');
+            let balance = await NFTinstance.methods.tokensMintedPerCategoryPerAddress(that.showObj.wallet_address, that.showObj.category_id).call();
+            console.log("balance is----->", balance);
+            if (parseInt(res.quantity) + parseInt(balance) > parseInt(this.showObj.perAddress)) {
+              console.log("balance is----->", balance);
+              this.toaster.error("Amount Exceeded Max per wallet address!", 'Error!');
               this.spinner.hide();
-            
+
               return;
-              
-              
+
+
             }
             this.spinner.show();
-       
+
             let amt = parseInt(res.quantity) * parseFloat(that.showObj.price);
-            let mintStatus=await NFTinstance.methods.mintTokens(that.showObj.category_id, parseInt(res.quantity))
+            let mintStatus = await NFTinstance.methods.mintTokens(that.showObj.category_id, parseInt(res.quantity))
               .send({
                 from: that.showObj.wallet_address,
                 value: await window.web3.utils.toWei(`${amt}`),
               })
               .on('transactionHash', async (hash: any) => {
-                this.spinner.hide();
+                // this.spinner.hide();
                 console.log(hash);
                 let oDataToPass = {
                   quantity: res.quantity,
@@ -217,23 +220,42 @@ export class PackDetailComponent implements OnInit {
                   sTransactionHash: hash
                 };
                 console.log(oDataToPass);
-              
-                console.log("mint status is------>",mintStatus);
-                this.spinner.show();
+
+                // console.log("mint status is------>", mintStatus);
+                // this.spinner.show();
                 await this.apiService.createTransaction(oDataToPass).subscribe(async (transData: any) => {
-                  this.spinner.hide();
+                  // this.spinner.hide();
                   if (transData && transData['data']) {
-                    that.toaster.success('Transaction mined successfully. it will be Reflected Once Transaction is mined.', 'Success!');
+                    that.toaster.success('Transaction sent successfully. it will be Reflected Once Transaction is mined.', 'Success!');
                     // that.router.navigate(['/marketplace']);
                     // await this.router.navigate(['']);
-                    that.onClickRefresh();
+                    // that.onClickRefresh();
                   } else {
                     this.toaster.success(transData['message'], 'Success!');
                   }
                 })
-              }).catch(function (error: any) {
-                that.spinner.hide();
+              })
+              .on('confirmation', (confirmationNumber: any, receipt: any) => {
+                this.spinner.show();
+                console.log("%c Confirmation #" + confirmationNumber + " Receipt: ", "color: #0000ff");
+                console.log(receipt);
+                if (receipt?.status === true) {
+                  that.toaster.success('Transaction confirmed', 'Success!');
+                }
+                else if (receipt?.status === false) {
+                  that.toaster.error('Transaction failed', 'Error!');
+                }
                 that.onClickRefresh();
+                this.spinner.hide();
+              })
+              .on('error', (error: any) => {
+                console.log("%c Error:: " + error.message, "color: #ff0000");
+                return false;
+              })
+
+              .catch(function (error: any) {
+                that.spinner.hide();
+                // that.onClickRefresh();
                 console.log(error);
                 if (error.code == 32603) {
                   that.toaster.error("You're connected to wrong network!", 'Error!');
@@ -242,13 +264,13 @@ export class PackDetailComponent implements OnInit {
                   that.toaster.error("You Denied Transaction Signature", 'Error!');
                 }
               });
-  
-  
+
+
           }
         } else {
           this.toaster.error('Quantity should be greater than 0.');
         }
-  
+
         this.spinner.hide();
       }
 
@@ -260,7 +282,7 @@ export class PackDetailComponent implements OnInit {
 
 
   }
-    
+
   onClickRefresh() {
     window.location.reload();
   }
