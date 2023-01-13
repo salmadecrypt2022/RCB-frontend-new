@@ -182,7 +182,7 @@ export class PackDetailComponent implements OnInit {
             this.spinner.show();
        
             let amt = parseInt(res.quantity) * parseFloat(that.showObj.price);
-            await NFTinstance.methods.mintTokens(that.showObj.category_id, parseInt(res.quantity))
+            let mintStatus=await NFTinstance.methods.mintTokens(that.showObj.category_id, parseInt(res.quantity))
               .send({
                 from: that.showObj.wallet_address,
                 value: await window.web3.utils.toWei(`${amt}`),
@@ -199,6 +199,8 @@ export class PackDetailComponent implements OnInit {
                   sTransactionHash: hash
                 };
                 console.log(oDataToPass);
+              
+                console.log("mint status is------>",mintStatus);
                 this.spinner.show();
                 await this.apiService.createTransaction(oDataToPass).subscribe(async (transData: any) => {
                   this.spinner.hide();
