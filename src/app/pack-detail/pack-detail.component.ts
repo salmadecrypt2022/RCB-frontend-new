@@ -160,7 +160,10 @@ export class PackDetailComponent implements OnInit {
             let maxTokensPerUser=await NFTinstance.methods.maxTokensPerUser().call();
             let tokensLeftTOMint=maxTokensPerUser-totalTokenBalance
             
-            if(totalTokenBalance+res.quantity>maxTokensPerUser){
+            console.log("total token balance max tokens per user",totalTokenBalance);
+            console.log("res n quantitiy is---->",parseInt(res.quantity))
+            
+            if(parseInt(totalTokenBalance)+parseInt(res.quantity)>parseInt(maxTokensPerUser)){
               this.toaster.error(`Only ${tokensLeftTOMint} tokens are left for you to mint`, 'Error!');
               this.spinner.hide();
             
