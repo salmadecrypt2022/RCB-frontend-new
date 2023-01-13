@@ -162,7 +162,7 @@ export class PackDetailComponent implements OnInit {
               return;
             }
             
-            if(parseInt(maxTokenMint)+parseInt(res.quantity)>=parseInt(this.showObj.categoryTokencap)){
+            if(parseInt(maxTokenMint)+parseInt(res.quantity)>parseInt(this.showObj.categoryTokencap)){
               this.toaster.error("All tokens got minted for this category!", 'Error!');
               this.spinner.hide();
             
