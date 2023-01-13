@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 import { ScriptLoaderService } from '../script-loader.service';
+import transakSDK from '@transak/transak-sdk';
 
 
 declare let window: any;
@@ -130,6 +131,36 @@ export class MyWalletComponent implements OnInit {
     this.searchData['length'] = this.searchData['length'] + 6;
 
     await this.listTransaction(this.searchData);
+  }
+  
+  onClickAdd() {
+    let transak = new transakSDK({
+      apiKey: 'aa84ba7a-a889-4ca1-8e10-a70f384bbd81', // Your API Key
+      environment: 'STAGING', // STAGING/PRODUCTION
+      hostURL: window.location.origin,
+      widgetHeight: '550px',
+      widgetWidth: '500px',
+      // Examples of some of the customization parameters you can pass
+      defaultCryptoCurrency: 'MATIC', // Example 'ETH'
+      walletAddress: this.showObj.wallet_address, // Your customer's wallet address
+      themeColor: '000000', // App theme color
+      fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
+      email: '', // Your customer's email address
+      redirectURL: window.location.origin,
+    });
+
+    transak.init();
+
+    // To get all the events
+    transak.on(transak.ALL_EVENTS, (data) => {
+      console.log(data);
+    });
+
+    // This will trigger when the user marks payment is made.
+    transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      console.log(orderData);
+      transak.close();
+    });
   }
 
 

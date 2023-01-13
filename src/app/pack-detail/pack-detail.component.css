@@ -1,0 +1,11 @@
+.is-invalid {
+  border-color: #f4516c;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(244, 81, 108, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(244, 81, 108, 0.25);
+}
+
+.nft-err span {
+  font-size: 14px;
+  color: #852121;
+}
+/*# sourceMappingURL=pack-detail.component.css.map */

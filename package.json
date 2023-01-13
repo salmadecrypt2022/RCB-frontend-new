@@ -19,6 +19,7 @@
     "@angular/forms": "~10.2.4",
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
+    "@transak/transak-sdk": "^1.0.31",
     "@angular/router": "~10.2.4",
     "rxjs": "~6.6.0",
     "jquery": "^3.6.0",

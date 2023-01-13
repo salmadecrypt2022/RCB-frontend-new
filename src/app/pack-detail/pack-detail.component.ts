@@ -23,6 +23,8 @@ export class PackDetailComponent implements OnInit {
     category_name: '',
     status: ''
   };
+  
+  TotalTokensUserMint:any;
 
   buyForm: any;
   submitted1: Boolean = false;
@@ -55,7 +57,12 @@ export class PackDetailComponent implements OnInit {
     this.getActiveCategory();
 
     this.showObj.wallet_address = await this.apiService.export();
-    console.log("wallet address is---->", this.showObj.wallet_address);
+    var NFTinstance = await this.apiService.exportInstance(environment.address, environment.ABI);
+    this.TotalTokensUserMint=await NFTinstance.methods.maxTokensPerUser().call();
+    
+    console.log("max tokens per user is---->",this.TotalTokensUserMint)
+    
+    console.log("wallet address is---->",this.showObj.wallet_address);
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
 
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
@@ -143,19 +150,30 @@ export class PackDetailComponent implements OnInit {
 
             console.log("wallet address 1---->", that.showObj.wallet_address);
             //let balance;
-            console.log("wallet address is- 2--->", this.showObj.wallet_address);
-
-
-            console.log("this show obj is----->", this.showObj);
-
-
-            let maxTokenMint = await NFTinstance.methods.totalTokensMintedPerCategory(that.showObj.category_id).call();
-            console.log("total token minted is---->", parseInt(maxTokenMint));
-            console.log("total token minted is---->", parseInt(res.quantity));
-            let tokensLeft: any = parseInt(this.showObj.categoryTokencap) - parseInt(maxTokenMint);
-            console.log("tokens left are----->", tokensLeft);
-
-            if (parseInt(res.quantity) > parseInt(tokensLeft)) {
+            console.log("wallet address is- 2--->",this.showObj.wallet_address);
+            
+            
+            console.log("this show obj is----->",this.showObj);
+            
+            
+            let totalTokenBalance=await NFTinstance.methods.balanceOf(that.showObj.wallet_address).call();
+            let maxTokensPerUser=await NFTinstance.methods.maxTokensPerUser().call();
+            let tokensLeftTOMint=maxTokensPerUser-totalTokenBalance
+            
+            if(totalTokenBalance+res.quantity>maxTokensPerUser){
+              this.toaster.error(`Only ${tokensLeftTOMint} tokens are left for you to mint`, 'Error!');
+              this.spinner.hide();
+            
+              return;
+            }
+           
+            let maxTokenMint=await NFTinstance.methods.totalTokensMintedPerCategory(that.showObj.category_id).call();
+            console.log("total token minted is---->",parseInt(maxTokenMint));
+            console.log("user token mint---->",parseInt(res.quantity));
+            let tokensLeft:any=parseInt(this.showObj.categoryTokencap)-parseInt(maxTokenMint);
+            console.log("tokens left are----->",tokensLeft);
+            
+            if(parseInt(res.quantity)>parseInt(tokensLeft)){
               this.toaster.error(`Only ${tokensLeft} tokens are left in this category`, 'Error!');
               this.spinner.hide();
 
