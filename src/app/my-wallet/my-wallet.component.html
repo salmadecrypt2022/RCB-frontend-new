@@ -57,7 +57,7 @@
             </form>
           </div>
 
-          <a class="gold-btn-a add-funds-btn" data-bs-toggle="modal" data-bs-target="#Modal-forgoted"
+          <a class="gold-btn-a add-funds-btn" (click)="onClickAdd()"
             href="javascript:;">Add
             funds</a>
 
@@ -175,15 +175,15 @@
         <div class="add-funds">
           <p class="para-heading">Add funds to your balance</p>
 
-          <div class="amount-input">
+          <!--<div class="amount-input">
             <form>
               <input type="text" placeholder="Enter Amount">
               <p>MATIC</p>
             </form>
-          </div>
+          </div>-->
 
-          <a data-bs-toggle="modal" data-bs-target="#Modal-forgoted" href="javascript:;"
-            class="gold-btn-a add-funds-btn">Add
+          <a data-bs-toggle="modal"  href="javascript:;"
+            class="gold-btn-a add-funds-btn" (click)="onClickAdd()">Add
             funds</a>
 
           <p class="balance-para">When you purchase Dapper Balance using fiat payment methods, the sale is made by

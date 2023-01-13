@@ -142,7 +142,7 @@ export class MyWalletComponent implements OnInit {
       widgetWidth: '500px',
       // Examples of some of the customization parameters you can pass
       defaultCryptoCurrency: 'MATIC', // Example 'ETH'
-      walletAddress: this.account[0], // Your customer's wallet address
+      walletAddress: this.showObj.wallet_address, // Your customer's wallet address
       themeColor: '000000', // App theme color
       fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
       email: '', // Your customer's email address
