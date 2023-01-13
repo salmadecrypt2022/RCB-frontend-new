@@ -97,7 +97,8 @@ export class PacksComponent implements OnInit {
 
         this.showObj = {
           category_id: categoryData.category_id ? categoryData.category_id : 0,
-          price: categoryData.sPrice ? categoryData.sPrice* this.priceInUSD : 0,
+          // price: categoryData.sPrice ? categoryData.sPrice* this.priceInUSD : 0,
+          price: categoryData.sPrice ? categoryData.sPrice : 0,
           perAddress: categoryData.maxPerAddress ? categoryData.maxPerAddress : 0,
           categoryTokencap:categoryData.categoryTokencap ? categoryData.categoryTokencap : 0,
           category_name:categoryData.category_name ? categoryData.category_name : 0
