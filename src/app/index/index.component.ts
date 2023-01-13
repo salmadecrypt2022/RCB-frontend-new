@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,6 +15,8 @@ declare let window: any;
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
+
+
 export class IndexComponent implements OnInit {
 
   constructor(private router: Router,
@@ -57,6 +59,7 @@ export class IndexComponent implements OnInit {
   @ViewChild('minutes', { static: true }) minutes: ElementRef;
   @ViewChild('seconds', { static: true }) seconds: ElementRef;
 
+
   ngAfterViewInit() {
     setInterval(() => {
       this.tickTock();
@@ -68,10 +71,15 @@ export class IndexComponent implements OnInit {
   tickTock() {
     this.date = new Date();
     this.now = this.date.getTime();
-    this.days.nativeElement.innerText = Math.floor(this.difference);
-    this.hours.nativeElement.innerText = 23 - this.date.getHours();
-    this.minutes.nativeElement.innerText = 60 - this.date.getMinutes();
-    this.seconds.nativeElement.innerText = 60 - this.date.getSeconds();
+
+    let daysss = Math.floor(this.difference);
+    let hourss = 23 - this.date.getHours();
+    let minutesss = 60 - this.date.getMinutes();
+    let secondsss = 60 - this.date.getSeconds();
+    this.days.nativeElement.innerText = daysss;
+    this.hours.nativeElement.innerText = hourss.toString().padStart(2, '0');
+    this.minutes.nativeElement.innerText = minutesss.toString().padStart(2, '0');
+    this.seconds.nativeElement.innerText = secondsss.toString().padStart(2, '0');
   }
 
   val: any = '';
