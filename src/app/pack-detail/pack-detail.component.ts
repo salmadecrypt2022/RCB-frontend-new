@@ -19,7 +19,7 @@ export class PackDetailComponent implements OnInit {
     category_id: 0,
     price: 0,
     perAddress: 0,
-    categoryTokencap: 0,
+    categoryTokencap: 0, 
     category_name:'',
     status:''
   };
