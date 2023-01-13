@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
       this.apiService.updateProfile(fd).subscribe((updateData: any) => {
         this.spinner.hide();
         if (updateData && updateData['data']) {
-          this.toaster.success('Profile updted successfully.', 'Success!')
+          this.toaster.success('Profile updated successfully.', 'Success!')
           this.onClickRefresh();
         } else {
 

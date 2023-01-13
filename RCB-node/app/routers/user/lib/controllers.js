@@ -134,7 +134,7 @@ controllers.updateProfile = async (req, res, next) => {
                     };
 
                     const readableStreamForFile = fs.createReadStream(req.file.path);
-
+                    console.log("data", req.file)
                     await pinata.pinFileToIPFS(readableStreamForFile, oOptions).then(async (result) => {
                         oProfileDetails["sProfilePicUrl"] = result.IpfsHash;
                         fs.unlinkSync(req.file.path)
@@ -431,24 +431,24 @@ controllers.getCategoryByActive = async (req, res, next) => {
 
             if (start_date < currentDate && end_date > currentDate) {
                 findData.status = "ongoing";
-              } else {
+            } else {
                 if (start_date > currentDate) {
-                  findData.status = "upcoming";
+                    findData.status = "upcoming";
                 }
                 if (currentDate > end_date) {
-                  findData.status = "completed";
+                    findData.status = "completed";
                 }
-              }
+            }
 
-              
+
 
             return res.reply(messages.success(), {
                 data: findData,
                 message: 'Category finded successfully.'
             });
-        }else{
+        } else {
             return res.reply(messages.success(), {
-                data:{},
+                data: {},
                 message: 'Category finded successfully.'
             });
         }
@@ -468,7 +468,7 @@ controllers.subscribe = async (req, res, next) => {
             return res.reply(messages.success(), {
                 data: {},
                 message: 'You already subscribed.',
-                code:400
+                code: 400
             });
         }
         let createData = await Subscribe.create(req.body);
@@ -476,14 +476,14 @@ controllers.subscribe = async (req, res, next) => {
             return res.reply(messages.success(), {
                 data: createData,
                 message: 'Subscribed successfully.',
-                code:200
+                code: 200
             });
         } else {
 
             return res.reply(messages.server_error(), {
                 data: {},
                 message: 'Internal server err.',
-                code:404
+                code: 404
             });
         }
 
