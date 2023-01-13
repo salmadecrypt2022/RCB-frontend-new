@@ -172,7 +172,7 @@ export class PackDetailComponent implements OnInit {
             console.log("balance is----->", balance);
             if (parseInt(res.quantity) + parseInt(balance) > parseInt(this.showObj.perAddress)) {
               console.log("balance is----->", balance);
-              this.toaster.error("Amount Exceed Max per wallet address!", 'Error!');
+              this.toaster.error("Amount Exceeded Max per wallet address!", 'Error!');
               this.spinner.hide();
 
               return;
@@ -188,7 +188,7 @@ export class PackDetailComponent implements OnInit {
                 value: await window.web3.utils.toWei(`${amt}`),
               })
               .on('transactionHash', async (hash: any) => {
-                this.spinner.hide();
+                // this.spinner.hide();
                 console.log(hash);
                 let oDataToPass = {
                   quantity: res.quantity,
@@ -200,22 +200,41 @@ export class PackDetailComponent implements OnInit {
                 };
                 console.log(oDataToPass);
 
-                console.log("mint status is------>", mintStatus);
-                this.spinner.show();
+                // console.log("mint status is------>", mintStatus);
+                // this.spinner.show();
                 await this.apiService.createTransaction(oDataToPass).subscribe(async (transData: any) => {
-                  this.spinner.hide();
+                  // this.spinner.hide();
                   if (transData && transData['data']) {
-                    that.toaster.success('Transaction mined successfully. it will be Reflected Once Transaction is mined.', 'Success!');
+                    that.toaster.success('Transaction sent successfully. it will be Reflected Once Transaction is mined.', 'Success!');
                     // that.router.navigate(['/marketplace']);
                     // await this.router.navigate(['']);
-                    that.onClickRefresh();
+                    // that.onClickRefresh();
                   } else {
                     this.toaster.success(transData['message'], 'Success!');
                   }
                 })
-              }).catch(function (error: any) {
-                that.spinner.hide();
+              })
+              .on('confirmation', (confirmationNumber: any, receipt: any) => {
+                this.spinner.show();
+                console.log("%c Confirmation #" + confirmationNumber + " Receipt: ", "color: #0000ff");
+                console.log(receipt);
+                if (receipt?.status === true) {
+                  that.toaster.success('Transaction confirmed', 'Success!');
+                }
+                else if (receipt?.status === false) {
+                  that.toaster.error('Transaction failed', 'Error!');
+                }
                 that.onClickRefresh();
+                this.spinner.hide();
+              })
+              .on('error', (error: any) => {
+                console.log("%c Error:: " + error.message, "color: #ff0000");
+                return false;
+              })
+
+              .catch(function (error: any) {
+                that.spinner.hide();
+                // that.onClickRefresh();
                 console.log(error);
                 if (error.code == 32603) {
                   that.toaster.error("You're connected to wrong network!", 'Error!');
