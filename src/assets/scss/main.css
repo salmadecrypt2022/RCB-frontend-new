@@ -2720,6 +2720,10 @@ footer .forth-col .wrapper button {
   width: 100%;
 }
 
+footer .icon-div {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: 'Air';
   src: url(../fonts/airstrike.ttf);

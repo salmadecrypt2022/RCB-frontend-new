@@ -2218,7 +2218,9 @@ footer{
     float: left;
     width: 100%;
 }
-
+footer .icon-div {
+    cursor: pointer;
+}
 @import"help-center";
 @import"packs"; 
 @import "profile";
