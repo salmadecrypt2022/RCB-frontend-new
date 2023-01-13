@@ -26,6 +26,8 @@ $(async () => {
 
 try {
     window.ethereum.on('accountsChanged', function (accounts) {
+        window.localStorage.setItem('sWalletAddress', accounts[0]);
+        console.log("1111")
         location.reload();
     });
     window.ethereum.on('chainChanged', function () {
