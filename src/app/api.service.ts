@@ -398,7 +398,7 @@ export class ApiService {
     return this.http.get(this.URL + '/user/getCategory');
   }
 
-  
+
   
   getNextCategoryDate() {
     return this.http.get(this.URL + '/admin/nextCategoryDate');
