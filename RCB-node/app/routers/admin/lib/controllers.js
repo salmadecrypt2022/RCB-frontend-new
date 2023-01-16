@@ -579,6 +579,22 @@ controllers.getNextCategoryDate = async (req, res, next) => {
 
     } catch (err) {
         log.error(err)
+    }}
+controllers.deleteCategory = async (req, res, next) => {
+    try {
+        if (!req.body.sObjectId) return res.reply(messages.not_found("Category ID"));
+        if (!validators.isValidObjectID(req.body.sObjectId)) res.reply(messages.invalid("Category ID"));
+
+        Category.findOneAndDelete(({ _id:req.body.sObjectId }), function (err, deleted) {
+            if (err){
+                log.red(err);
+                return res.reply(messages.server_error());
+            }
+            else{
+                return res.reply(messages.updated('Category Deleted'));
+            }
+         });
+    } catch (error) {
         return res.reply(messages.server_error());
     }
 }
