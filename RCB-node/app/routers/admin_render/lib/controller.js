@@ -45,5 +45,12 @@ controllers.signin = (req, res) => {
 controllers.forgotPassword = (req, res) => {
     return res.render('Admin/forgotPassword')
 };
+controllers.nextCategories = (req, res) => {
+
+    return res.render('Admin/nextcategories', {
+        req: req,
+        res: res
+    });
+};
 
 module.exports = controllers;

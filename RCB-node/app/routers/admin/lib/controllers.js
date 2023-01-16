@@ -6,7 +6,8 @@ const multer = require('multer');
 const {
     User,
     Category,
-    Reserve
+    Reserve,
+    nextCategory
 } = require('../../../models');
 const {
     nodemailer
@@ -536,6 +537,64 @@ controllers.getCategoryById = async (req, res, next) => {
 
     } catch (err) {
         log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.nextCategoryData = async (req, res, next) => {
+    try {
+
+        let createData = await nextCategory.create(req.body);
+        if (createData && createData != null) {
+
+            return res.reply(messages.success(), {
+                data: createData,
+                message: 'next Category created successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.getNextCategoryDate = async (req, res, next) => {
+    try {
+       let upDateData =  await nextCategory.find().sort({ _id: -1 });
+       console.log("next category date is---->",upDateData);
+        if (upDateData && upDateData != null) {
+
+            return res.reply(messages.success(), {
+                data: upDateData,
+                message: 'Category get successfully.'
+            });
+        }else{
+
+            return res.reply(messages.success(), {
+                data: {},
+                message: 'Category Not found.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+    }}
+controllers.deleteCategory = async (req, res, next) => {
+    try {
+        if (!req.body.sObjectId) return res.reply(messages.not_found("Category ID"));
+        if (!validators.isValidObjectID(req.body.sObjectId)) res.reply(messages.invalid("Category ID"));
+
+        Category.findOneAndDelete(({ _id:req.body.sObjectId }), function (err, deleted) {
+            if (err){
+                log.red(err);
+                return res.reply(messages.server_error());
+            }
+            else{
+                return res.reply(messages.updated('Category Deleted'));
+            }
+         });
+    } catch (error) {
         return res.reply(messages.server_error());
     }
 }

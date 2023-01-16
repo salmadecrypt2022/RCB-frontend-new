@@ -33,7 +33,7 @@ mongoose
 async function categoryChecker() {
 
     try {
-        console.log("Checking for pending Mints 1...");
+        //console.log("Checking for pending Mints 1...");
         let aCategories = await Category.find({
             sTransactionStatus: 0
         });
@@ -74,7 +74,7 @@ async function categoryChecker() {
 async function transactionChecker() {
 
     try {
-        console.log("Checking for pending Mints 2...");
+        //console.log("Checking for pending Mints 2...");
         let aTransactions = await Transaction.find({
             sTransactionStatus: 0
         });
@@ -115,7 +115,7 @@ async function transactionChecker() {
 async function reserveChecker() {
 
     try {
-        console.log("Checking for pending Mints 3...");
+        //console.log("Checking for pending Mints 3...");
         let aReserves = await Reserve.find({
             sTransactionStatus: 0
         });
