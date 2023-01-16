@@ -733,6 +733,7 @@ $("#btnUpdateCat").on("click", async () => {
 
     let objDB = {
         _id: $("#categoryIDUpdate").val(),
+        category_id: parseInt($("#categoryIDContractUpdate").val()),
         starttime: dt.getTime(),
         endtime: 1920002931,
         maxPerAddress: $("#maxPerAddressUpdate").val(),
