@@ -384,15 +384,29 @@ controllers.reserveToken = async (req, res, next) => {
 
 controllers.updateCategory = async (req, res, next) => {
     try {
-       let upDateData =  await Category.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.body._id) },{$set:req.body});
+        let upDateData =  await Category.findOneAndUpdate(
+            { _id: mongoose.Types.ObjectId(req.body._id) },
+            {$set:
+                { 
+                    category_id: req.body.category_id,
+                    starttime: req.body.category_id,
+                    maxPerAddress: req.body.maxPerAddress,
+                    categoryTokencap: req.body.categoryTokencap,
+                    category_type: req.body.category_type,
+                    category_name: req.body.category_name,
+                    sStatus: req.body.sStatus,
+                    sTransactionHash: req.body.sTransactionHash,
+                    sTransactionStatus: 1,
+                    sWalletAddress: req.body.sWalletAddress,
+                    sPrice: req.body.sPrice
+                },
+            });
         if (upDateData && upDateData != null) {
-
             return res.reply(messages.success(), {
                 data: upDateData,
                 message: 'Category updated successfully.'
             });
         }
-
     } catch (err) {
         log.error(err)
         return res.reply(messages.server_error());
