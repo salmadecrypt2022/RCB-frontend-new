@@ -27,5 +27,7 @@ router.get('/getDashboardData', adminMiddleware.verifyToken, adminController.get
 router.post('/toggleUserStatus', adminMiddleware.verifyToken, adminController.toggleUserStatus);
 router.post('/toggleCategoryStatus', adminMiddleware.verifyToken, adminController.toggleCategoryStatus);
 
+router.post('/deleteCategory', adminMiddleware.verifyToken, adminController.deleteCategory);
+
 
 module.exports = router;

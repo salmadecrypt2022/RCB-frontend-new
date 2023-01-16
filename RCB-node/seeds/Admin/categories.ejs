@@ -94,7 +94,7 @@
                                                 </thead>
                                                 <tbody id="userList">
                                                     <tr>
-                                                        <td colspan="4">No users found.</td>
+                                                        <td colspan="4">No Category found.</td>
 
                                                     </tr>
                                                 </tbody>
@@ -179,19 +179,18 @@
                             <div class="col bas-form" style="padding: 0;">
                                 <input class="form-control" type="text" name="category_name" id="category_name"
                                     placeholder="Category Name">
-                                <label for="CategoryName" id="lblCategoryName"
-                                    class="text-danger d-none"></label>
+                                <label for="CategoryName" id="lblCategoryName" class="text-danger d-none"></label>
                             </div>
                         </div>
                         <div class="row text-center mb-2">
                             <div class="col bas-form" style="padding: 0;">
-                                <input class="form-control" type="datetime-local" name="category_startTime" id="category_startTime"
-                                    placeholder="Start Time">
+                                <input class="form-control" type="datetime-local" name="category_startTime"
+                                    id="category_startTime" placeholder="Start Time">
                                 <label for="category_startTime" id="lblcategory_startTime"
                                     class="text-danger d-none"></label>
                             </div>
                         </div>
-                     
+
                         <div class="row text-center mb-2">
                             <div class="col bas-form" style="padding: 0;">
                                 <!-- <input class="form-control" type="number" name="categoryTokencap" id="categoryTokencap"
@@ -315,7 +314,7 @@
     </div>
 
 
-    <!-- <div class="modal fade show" id="UpdateCat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade show" id="UpdateCat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -337,7 +336,73 @@
                             </div>
                         </div>
 
+                        <div class="row align-items-center bg-light-purple pt-3 pb-3 mb-4 mt-4">
+                            <label for="AmountError" id="lblAmountErrorUpdate" class="text-danger d-none"></label>
+                        </div>
 
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="hidden" name="categoryID" id="categoryIDUpdate">
+                                <input class="form-control" type="hidden" name="categoryIDContract" id="categoryIDContractUpdate">
+                                <input class="form-control" type="number" name="maxPerAddress" id="maxPerAddressUpdate"
+                                    placeholder="Max per address">
+                                <label for="MaxPerAddress" id="lblMaxPerAddressUpdate" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="categoryTokencap"
+                                    id="categoryTokencapUpdate" placeholder="Total supply">
+                                <label for="CategoryTokencap" id="lblCategoryTokencapUpdate"
+                                    class="text-danger d-none"></label>
+                            </div>
+                        </div>
+
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="text" name="category_name" id="category_nameUpdate"
+                                    placeholder="Category Name">
+                                <label for="CategoryName" id="lblCategoryNameUpdate" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="datetime-local" name="category_startTime"
+                                    id="category_startTimeUpdate" placeholder="Start Time">
+                                <label for="category_startTime" id="lblcategory_startTimeUpdate"
+                                    class="text-danger d-none"></label>
+                            </div>
+                        </div>
+
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <select class="form-control" name="sStatus" id="sStatusUpdate">
+                                    <option value="">Select status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+
+                                </select>
+                                <label for="Status" id="lblStatusUpdate" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <select class="form-control" name="category_type" id="category_typeUpdate">
+                                    <option value="">Select type</option>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                </select>
+                                <label for="Type" id="lblTypeUpdate" class="text-danger d-none"></label>
+                            </div>
+                        </div>
+                        <div class="row text-center mb-2">
+                            <div class="col bas-form" style="padding: 0;">
+                                <input class="form-control" type="number" name="sPrice" id="sPriceUpdate"
+                                    placeholder="Price">
+                                <label for="Price" id="lblPriceUpdate" class="text-danger d-none"></label>
+                            </div>
+                        </div>
                         <div class="row mt-4">
                             <div class="col text-center">
                                 <button class="btn btn-primary btn-peach with-icon mx-auto" id="btnUpdateCat">
@@ -349,7 +414,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!--**********************************
             Content body end
