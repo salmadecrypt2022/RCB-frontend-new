@@ -91,9 +91,10 @@ $(document).ready(async function () {
                                 <button id="btnBlockUser" name="blocked" title="Block" onclick="toggleStatus($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></button>
                                 <button id="btnBlockUser" name="deactivated" title="Allow User" onclick="AllowUser($(this))" objId='${row._id}' original_id='${row.category_id}' class="btn btn-danger btn-xs"><i class="fa fa-plus"></i></button>
                                 <button name="View" title="View" onclick="getCategoryById($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-eye"></i></button>
+                                &nbsp;&nbsp;&nbsp;<button name="Update" title="Update" onclick="getCategoryByIdUpdate($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;&nbsp;<button name="Delete" title="Delete" onclick="deleteCategory($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
                                 `;
                     }
-                    return `<button id="btnBlockUser" name="blocked" title="Block" onclick="toggleStatus($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></button>`;
+                    return `<button id="btnBlockUser" name="blocked" title="Block" onclick="toggleStatus($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></button>&nbsp;&nbsp;&nbsp;<button name="Update" title="Update" onclick="getCategoryByIdUpdate($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;&nbsp;<button name="Delete" title="Delete" onclick="deleteCategory($(this))" objId='${row._id}' class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>`;
                 } else {
                     return 'Transaction is not mined.'
                 }
@@ -108,28 +109,28 @@ $(document).ready(async function () {
     });
 
     // Add Placeholder to the search box
-    $("#userTable_filter > label > input[type=search]").attr("placeholder", "Username");
+    $("#userTable_filter > label > input[type=search]").attr("placeholder", "Keyword");
 
 
     $("#btnCreateCat").on("click", async () => {
         // $('#preloader').addClass(5000);
         // $('#main-wrapper').removeClass('show');
 
-        console.log("start time is----->",$("#category_startTime").val())
+        console.log("start time is----->", $("#category_startTime").val())
         let dt = $("#category_startTime").val();
-        dt=new Date(dt);
+        dt = new Date(dt);
 
-    const ct = new Date();
-    console.log("dt  is----->",dt.getTime());
-    console.log(" ct is----->",ct.getTime());
+        const ct = new Date();
+        console.log("dt  is----->", dt.getTime());
+        console.log(" ct is----->", ct.getTime());
 
-    if (dt.getTime() < ct.getTime()) {
-        console.log("true")
-        $('#lblcategory_startTime').html('Start time should be greate than previos time!');
-        $("#lblcategory_startTime").removeClass("d-none");
-        return;
-    }
-        
+        if (dt.getTime() < ct.getTime()) {
+            console.log("true")
+            $('#lblcategory_startTime').html('Start time should be greate than previos time!');
+            $("#lblcategory_startTime").removeClass("d-none");
+            return;
+        }
+
         if (!(await ethereum._metamask.isUnlocked())) {
             $('#lblAmountError').html('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
             $("#lblAmountError").removeClass("d-none");
@@ -502,39 +503,7 @@ function toggleStatus(btn) {
     });
 }
 
-function updateCategory(btn) {
-    console.log(btn.attr("objId"));
-    cat_id = btn.attr("objId")
 
-
-    // console.log(btn.attr("name"));
-    // // updateCategory
-
-    // let oOptions = {
-    //     sObjectId: btn.attr("objId"),
-    //     sStatus: btn.attr("name")
-    // }
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/api/v1/admin/updateCategory",
-    //     data: oOptions,
-    //     headers: {
-    //         'Authorization': token
-    //     },
-    //     success: function (result, status, xhr) {
-    //         console.log(xhr);
-    //         toastr["success"](xhr.responseJSON.message);
-    //         setTimeout(function () {
-    //             window.location.reload();
-    //         }, 1000)
-    //     },
-    //     error: function (xhr, status, error) {
-    //         toastr["error"](xhr.responseJSON.message);
-    //         console.log(xhr);
-    //     }
-    // });
-}
 
 
 function getCategoryById(btn) {
@@ -548,7 +517,7 @@ function getCategoryById(btn) {
         headers: {
             'Authorization': token
         },
-        beforeSend: function(){ 
+        beforeSend: function () {
             console.log("Sending data....");
             $('#loadingUsers').removeClass('d-none');
             $('#bodyOfCAT').addClass('d-none');
@@ -575,7 +544,7 @@ function getCategoryById(btn) {
                 }
 
                 setTimeout(function () {
-                    
+
                     $('#bodyOfCAT').html(newMSG);
                     $('#loadingUsers').addClass('d-none');
                     $('#bodyOfCAT').removeClass('d-none');
@@ -590,4 +559,259 @@ function getCategoryById(btn) {
         }
     });
 
+}
+
+
+function getCategoryByIdUpdate(btn) {
+    console.log(btn.attr("objId"));
+    let cat_obj_id = btn.attr("objId")
+
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/admin/getCategory/" + cat_obj_id,
+        data: {},
+        headers: {
+            'Authorization': token
+        },
+        beforeSend: function () {
+            console.log("Sending data....");
+            $('#loadingUsers').removeClass('d-none');
+            $('#bodyOfCAT').addClass('d-none');
+            $('#UpdateCat').modal('show');
+        },
+        success: function (result, status, xhr) {
+
+            console.log('-------- xhr.responseJSON.data[data]-----', xhr.responseJSON.data['data']);
+
+            if (xhr.responseJSON.data && xhr.responseJSON.data['data']) {
+
+                console.log("Category Data is ", xhr.responseJSON.data['data'])
+
+                let categoryData = xhr.responseJSON.data['data'];
+
+                var date = new Date(categoryData.starttime/1);
+                var year = date.getFullYear();
+                var month = ''+date.getMonth() + 1;
+                var day = ''+date.getDate();
+                if (month.length < 2) 
+                    month = '0' + month;
+    
+                if (day.length < 2) 
+                    day = '0' + day;
+
+                let hour = ''+date.getHours();
+                let minutes = ''+date.getMinutes();
+                if (hour.length < 2) 
+                    hour = '0' + hour;
+    
+                if (minutes.length < 2) 
+                    minutes = '0' + minutes;
+
+                let startDate = [year, month, day].join('-');
+                let startTime = [hour, minutes].join(':');
+                let startDateTime = [startDate, startTime].join('T');
+                $("#categoryIDUpdate").val(categoryData._id);
+                $("#categoryIDContractUpdate").val(categoryData.category_id);
+                $("#maxPerAddressUpdate").val(categoryData.maxPerAddress)
+                $("#categoryTokencapUpdate").val(parseInt(categoryData.categoryTokencap))
+                $("#category_nameUpdate").val(categoryData.category_name)
+                $("#category_startTimeUpdate").val(startDateTime)
+                $("#sStatusUpdate").val(categoryData.sStatus).change();
+                $("#category_typeUpdate").val(categoryData.category_type).change();
+                $("#sPriceUpdate").val(categoryData.sPrice)
+
+            }
+
+        },
+        error: function (xhr, status, error) {
+            toastr["error"](xhr.responseJSON.message);
+            console.log(xhr);
+        }
+    });
+}
+
+$("#btnUpdateCat").on("click", async () => {
+    console.log("Button clicked");
+    let dt = $("#category_startTimeUpdate").val();
+    dt = new Date(dt);
+    const ct = new Date();
+    if (dt.getTime() < ct.getTime()) {
+        console.log("true")
+        $('#lblcategory_startTimeUpdate').html('Start time should be greate than previos time!');
+        $("#lblcategory_startTimeUpdate").removeClass("d-none");
+        return;
+    }
+    if (!(await ethereum._metamask.isUnlocked())) {
+        $('#lblAmountErrorUpdate').html('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
+        $("#lblAmountErrorUpdate").removeClass("d-none");
+        return;
+    }
+    if (isNaN($("#maxPerAddressUpdate").val())) {
+        $("#lblMaxPerAddressUpdate").text("Max per address Should be Numeric seconds Only!");
+        $("#lblMaxPerAddressUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblMaxPerAddressUpdate").addClass("d-none");
+    }
+    if (isNaN($("#categoryTokencapUpdate").val())) {
+        $("#lblCategoryTokencapUpdate").text("Totalsupply Should be Numeric seconds Only!");
+        $("#lblCategoryTokencapUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblCategoryTokencapUpdate").addClass("d-none");
+    }
+    if (isNaN($("#sPriceUpdate").val())) {
+        $("#lblPriceUpdate").text("Price Should be Numeric amount Only!");
+        $("#lblPriceUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblPriceUpdate").addClass("d-none");
+    }
+    //----------------------------------------
+    if ($("#sStatusUpdate").val() == '') {
+        $("#lblStatusUpdate").text("Please select status!");
+        $("#lblStatusUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblStatusUpdate").addClass("d-none");
+    }
+    if ($("#category_nameUpdate").val() == '') {
+        $("#lblCategoryNameUpdate").text("Please Enter category name!");
+        $("#lblCategoryNameUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblCategoryNameUpdate").addClass("d-none");
+    }
+    if ($("#maxPerAddressUpdate").val() <= 0) {
+        $("#lblMaxPerAddressUpdate").text("Please Enter Value greater than 0");
+        $("#lblMaxPerAddressUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblMaxPerAddressUpdate").addClass("d-none");
+    }
+    if ($("#categoryTokencapUpdate").val() <= 0) {
+        $("#lblCategoryTokencapUpdate").text("Please Enter Value greater than 0");
+        $("#lblCategoryTokencapUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblCategoryTokencapUpdate").addClass("d-none");
+    }
+    if ($("#sPriceUpdate").val() <= 0) {
+        $("#lblPriceUpdate").text("Please Enter Value greater than 0");
+        $("#lblPriceUpdate").removeClass("d-none");
+        return;
+    } else {
+        $("#lblPriceUpdate").addClass("d-none");
+    }
+    
+    window.ethereum.enable();
+    web3 = new Web3(web3.currentProvider);
+    var sAccount;
+    let aAccounts = await web3.eth.getAccounts();
+    sAccount = aAccounts[0];
+    console.log(aAccounts);
+    let d = new Date();
+    d = d.getTime();
+    d = d / 1000;
+    var oContract = new web3.eth.Contract(abi, mainContractAddress)
+
+    let obj = {
+        categoryId_DB: $("#categoryIDUpdate").val(),
+        categoryId: $("#categoryIDContractUpdate").val(),
+        starttime: dt.getTime(),
+        endtime: 1920002931,
+        maxPerAddress: $("#maxPerAddressUpdate").val(),
+        categoryTokencap: $("#categoryTokencapUpdate").val(),
+        category_type: $("#category_typeUpdate").val(),
+        category_name: $("#category_nameUpdate").val(),
+        sStatus: $("#sStatusUpdate").val(),
+        sTransactionHash: '',
+        sTransactionStatus: 0,
+        sWalletAddress: sAccount,
+        sPrice: $("#sPriceUpdate").val(),
+    };
+
+    let objDB = {
+        _id: $("#categoryIDUpdate").val(),
+        starttime: dt.getTime(),
+        endtime: 1920002931,
+        maxPerAddress: $("#maxPerAddressUpdate").val(),
+        categoryTokencap: $("#categoryTokencapUpdate").val(),
+        category_type: $("#category_typeUpdate").val(),
+        category_name: $("#category_nameUpdate").val(),
+        sStatus: $("#sStatusUpdate").val(),
+        sTransactionHash: '',
+        sTransactionStatus: 0,
+        sWalletAddress: sAccount,
+        sPrice: $("#sPriceUpdate").val(),
+    };
+    // 
+    console.log('--------------------------------obj', obj)
+    await oContract.methods.updateCategory(obj.categoryId, obj.starttime, obj.endtime, obj.maxPerAddress, obj.categoryTokencap, obj.category_type == 'public' ? false : true, obj.sStatus == 'active' ? true : false, Web3.utils.toWei($("#sPriceUpdate").val(), 'ether')).send({
+        from: sAccount
+    })
+    .on('transactionHash', async (hash) => {
+        objDB.sTransactionHash = hash
+        console.log(hash);
+        updateCategory(objDB);
+    }).catch(function (error) {
+        console.log(error);
+        if (error.code == 32603) {
+            toastr["error"]("You're connected to wrong network!");
+        }
+        if (error.code == 4001) {
+            toastr["error"]("You Denied Transaction Signature");
+        }
+    });
+})
+
+function updateCategory(data) {
+    $.ajax({
+        type: "POST",
+        url: "/api/v1/admin/updateCategory",
+        data: data,
+        headers: {
+            'Authorization': token
+        },
+        success: function (result, status, xhr) {
+            console.log(xhr);
+            toastr["success"](xhr.responseJSON.message);
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000)
+        },
+        error: function (xhr, status, error) {
+            toastr["error"](xhr.responseJSON.message);
+            console.log(xhr);
+        }
+    });
+}
+
+function deleteCategory(btn) {
+    console.log(btn.attr("objId"));
+    console.log(btn.attr("name"));
+
+    var result = confirm("Want to delete this Category?");
+    if (result) {
+        let oOptions = { sObjectId: btn.attr("objId"), }
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/admin/deleteCategory",
+            data: oOptions,
+            headers: {
+                'Authorization': token
+            },
+            success: function (result, status, xhr) {
+                console.log(xhr);
+                toastr["success"](xhr.responseJSON.message);
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000)
+            },
+            error: function (xhr, status, error) {
+                toastr["error"](xhr.responseJSON.message);
+                console.log(xhr);
+            }
+        });
+    }
 }
