@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { ZeroDecimaNumber } from "./numeric.directive";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,8 +21,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { FooterComponent } from './footer/footer.component';
 import { ScriptLoaderService } from './script-loader.service';
 
+
 @NgModule({
   declarations: [
+    ZeroDecimaNumber,
     AppComponent,
     HeaderComponent,
     SidebarComponent,
@@ -49,6 +52,6 @@ import { ScriptLoaderService } from './script-loader.service';
     }),
   ],
   providers: [ScriptLoaderService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent]  
 })
 export class AppModule { }

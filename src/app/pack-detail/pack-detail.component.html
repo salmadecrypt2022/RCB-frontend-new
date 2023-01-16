@@ -72,7 +72,7 @@
         </p>
 
         <p>Total Supply {{showObj.categoryTokencap ? showObj.categoryTokencap :0}}</p>
-        <p>Contain {{showObj.perAddress ? showObj.perAddress :0}} Per Address</p>
+        <p>Purchase Limit {{showObj.perAddress ? showObj.perAddress :0}} Per Address</p>
         <p>Max Tokens Per User {{TotalTokensUserMint?TotalTokensUserMint:0}}</p>
         <div class="pack-price mt-4">
           <h4>{{ showObj.price ? showObj.price : 0 }}</h4>
@@ -113,7 +113,7 @@
 
         <div
           class="join-now mt-5"
-          *ngIf="showObj.status && showObj.status == 'ongoing'"
+          *ngIf="isCategoryActive"
         >
           <a
             data-bs-toggle="modal"
@@ -122,6 +122,7 @@
             class="join-link"
             >Buy now</a
           >
+          
           <!--<a href="#"
             ><span class="iconify" data-icon="ant-design:heart-outlined"></span
           ></a>-->
@@ -215,7 +216,9 @@
         <div class="form-group position-relative">
           <p>Quantity</p>
           <input
-            type="number"
+            type="text"
+            step="1"
+            appZeroDigitDecimaNumber
             placeholder="Enter your quantity"
             [ngClass]="{
               'is-invalid': submitted1 && buyForm.controls.quantity.errors

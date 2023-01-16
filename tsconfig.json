@@ -16,5 +16,11 @@
       "es2018",
       "dom"
     ]
-  }
+  },
+  "include": [
+    "./node_modules/@ngtools/webpack/src/index.js"
+  ],
+  "files": [
+    "./node_modules/@ngtools/webpack/src/index.js"
+  ],
 }

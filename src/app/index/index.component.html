@@ -115,16 +115,17 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 first-one-1 pt-5 pb-5">
-          <h2 data-aos="zoom-in">upcoming ball packs</h2>
+          <h2 data-aos="zoom-in" *ngIf="!isCategoryActive">upcoming ball packs</h2>
+          <h2 data-aos="zoom-in" *ngIf="isCategoryActive">live ball packs</h2>
           
-          <div class="wrapper">
-            <div class="description">
+          <div class="wrapper" >
+            <div class="description" *ngIf="!isCategoryActive">
               <p>Days</p>
               <p>Hours</p>
               <p>Minutes</p>
               <p>Seconds</p>
             </div>
-            <div class="times">
+            <div class="times" >
               <p #days></p>
               <p #hours></p>
               <p #minutes></p>
@@ -133,7 +134,7 @@
           </div>
           <!-- <p class="pt-4 first-para-1">02:13:01:00</p> -->
           <br><br>
-          <a href="javascript:;" routerLink="/pack-detail">Buy now</a>
+          <a href="javascript:;" routerLink="/pack-detail" *ngIf="isCategoryActive">Buy now</a>
         </div>
 
         <div class="col-lg-8  second-one-1">

@@ -21,8 +21,11 @@ export class PackDetailComponent implements OnInit {
     perAddress: 0,
     categoryTokencap: 0,
     category_name: '',
-    status: ''
+    status: '',
+    startTime:0
   };
+  
+  isCategoryActive=false;
   
   TotalTokensUserMint:any;
 
@@ -55,6 +58,8 @@ export class PackDetailComponent implements OnInit {
     })
 
     this.getActiveCategory();
+   
+  
 
     this.showObj.wallet_address = await this.apiService.export();
     var NFTinstance = await this.apiService.exportInstance(environment.address, environment.ABI);
@@ -96,7 +101,16 @@ export class PackDetailComponent implements OnInit {
           wallet_address: this.showObj.wallet_address,
           category_name: categoryData.category_name ? categoryData.category_name : 0,
           status: categoryData.status ? categoryData.status : 0,
+          startTime:categoryData.starttime?categoryData.starttime:0
         };
+        console.log(" liveTime is----->",this.showObj.startTime);
+        const ct = new Date();
+    
+        console.log(" ct is----->",ct.getTime());
+        if(this.showObj.startTime<ct.getTime()){
+          console.log("category is active")
+          this.isCategoryActive=true
+        }
       }
     }, (err: any) => {
 

@@ -129,9 +129,9 @@
                     <th scope="row" class="table-text"> {{obj && obj.sCreated &&
                       obj.sCreated != undefined ?
                       (obj.sCreated | date: 'medium'):0}}</th>
-                    <td class="table-text">{{obj && obj.category_id &&
-                      obj.category_id != undefined ?
-                      obj.category_id :0}}</td>
+                    <td class="table-text">
+                      {{ obj && obj.CategoryData && obj.CategoryData[0].category_name != undefined ? obj.CategoryData[0].category_name : obj.category_id }}
+                    </td>
                     <td class="table-text">{{obj && obj.quantity &&
                       obj.quantity != undefined ?
                       obj.quantity :0}}</td>
@@ -163,9 +163,27 @@
             </table>
           </div>
 
-          <div class="first-block" *ngIf="listData.length < filterData['recordsTotal'] ">
+          <div class="first-block" *ngIf="recordCount > 5 ">
             <!-- <p>Latest transactions</p> -->
-            <a href="javascript:;" (click)="onClickLoadMore()"><span class="iconify" data-icon="akar-icons:arrow-right"></span></a>
+            isFirstPage : {{isFirstPage}}
+            isLastPage : {{isLastPage}}
+
+            <div *ngIf="isLastPage == 1"> 
+              <a href="javascript:;" aria-disabled="true" class="btn-disabled" >Next <span class="iconify" data-icon="akar-icons:arrow-right"></span></a>
+            </div>
+            <div *ngIf="isLastPage == 0"> 
+              <a href="javascript:;" (click)="onClickLoadMoreNext()">Next <span class="iconify" data-icon="akar-icons:arrow-right"></span></a>
+            </div>
+            
+
+            <div *ngIf="isFirstPage == 1"> 
+              <a href="javascript:;" aria-disabled="true" class="btn-disabled"><span class="iconify" data-icon="akar-icons:arrow-left"></span> Prev</a>
+            </div>
+            <div *ngIf="isFirstPage == 0"> 
+              <a href="javascript:;" (click)="onClickLoadMorePrev()"><span class="iconify" data-icon="akar-icons:arrow-left"></span> Prev</a>
+            </div>
+            
+            
           </div>
         </div>
 
