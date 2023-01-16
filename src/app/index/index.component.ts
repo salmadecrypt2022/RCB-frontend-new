@@ -49,6 +49,8 @@ export class IndexComponent implements OnInit {
   targetTime: any = this.targetDate.getTime();
 
   difference: number;
+  
+  nextCategoryDate:any;
 
   @ViewChild('days', { static: true }) days: ElementRef;
   @ViewChild('hours', { static: true }) hours: ElementRef;
@@ -81,6 +83,28 @@ export class IndexComponent implements OnInit {
     this._script.loadScripts("app-index", scripts).then(function () {
 
     })
+    
+    this.apiService.getNextCategoryDate().subscribe((transData) => {
+   
+      console.log('--------transData of next category date is-------------', transData)
+      transData = transData['data'];
+      
+      let date=transData['data'];
+      console.log("date is--------->",date[0].starttime);
+      this.nextCategoryDate=date[0].starttime;
+      if (transData && transData['code'] && transData['code'] == 200) {
+     
+     
+
+      } else {
+  
+      }
+    }, (err: any) => {
+
+      let transData = err['data'];
+     
+
+    });
 
     await this.getActiveCategory();
 

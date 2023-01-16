@@ -6,7 +6,8 @@ const multer = require('multer');
 const {
     User,
     Category,
-    Reserve
+    Reserve,
+    nextCategory
 } = require('../../../models');
 const {
     nodemailer
@@ -520,6 +521,48 @@ controllers.getDashboardData = async (req, res) => {
 controllers.getCategoryById = async (req, res, next) => {
     try {
        let upDateData =  await Category.findOne({ _id: mongoose.Types.ObjectId(req.params.id)});
+        if (upDateData && upDateData != null) {
+
+            return res.reply(messages.success(), {
+                data: upDateData,
+                message: 'Category get successfully.'
+            });
+        }else{
+
+            return res.reply(messages.success(), {
+                data: {},
+                message: 'Category Not found.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.nextCategoryData = async (req, res, next) => {
+    try {
+
+        let createData = await nextCategory.create(req.body);
+        if (createData && createData != null) {
+
+            return res.reply(messages.success(), {
+                data: createData,
+                message: 'next Category created successfully.'
+            });
+        }
+
+    } catch (err) {
+        log.error(err)
+        return res.reply(messages.server_error());
+    }
+}
+
+controllers.getNextCategoryDate = async (req, res, next) => {
+    try {
+       let upDateData =  await nextCategory.find().sort({ _id: -1 });
+       console.log("next category date is---->",upDateData);
         if (upDateData && upDateData != null) {
 
             return res.reply(messages.success(), {

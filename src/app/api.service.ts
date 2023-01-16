@@ -398,11 +398,21 @@ export class ApiService {
     return this.http.get(this.URL + '/user/getCategory');
   }
 
+  
+  
+  getNextCategoryDate() {
+    return this.http.get(this.URL + '/admin/nextCategoryDate');
+  }
+
 
 
   createTransaction(data: any) {
     return this.http.post(this.URL + '/transaction/create', data, { headers: { 'Authorization': this.getHeaders() } });
   }
+  
+  
+  
+  
 
 
   //  # create order based on the reservation id

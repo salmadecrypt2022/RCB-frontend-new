@@ -11,12 +11,14 @@ router.put('/updateProfile', adminMiddleware.verifyToken, adminController.update
 // User APIs
 router.post('/users', adminMiddleware.verifyToken, adminController.users);
 router.post('/categories', adminMiddleware.verifyToken, adminController.categoriesList);
+router.post('/nextCategory', adminMiddleware.verifyToken, adminController.nextCategoryData);
 router.post('/reserves', adminMiddleware.verifyToken, adminController.reserves);
 router.post('/reserveToken', adminMiddleware.verifyToken, adminController.reserveToken);
 
 router.post('/createCategory', adminMiddleware.verifyToken, adminController.createCategory);
 router.get('/getCategory/:id', adminMiddleware.verifyToken, adminController.getCategoryById);
 
+router.get('/nextCategoryDate', adminController.getNextCategoryDate);
 router.post('/updateCategory', adminMiddleware.verifyToken, adminController.updateCategory);
 
 router.post('/usersInCategory', adminMiddleware.verifyToken, adminController.usersInCategory);
