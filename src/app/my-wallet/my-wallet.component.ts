@@ -21,14 +21,17 @@ export class MyWalletComponent implements OnInit {
     wallet_address: ''
   };
   searchData: any = {
-    length: 6,
-    start: 0,
+    limit: 5,
+    page: 1,
     sWalletAddress: ''
   };
   filterData: any = {}
   listData: any = [];
-  priceInUSD:any =0;
- balance :any= 0;
+  recordCount: any = 0;
+  priceInUSD: any = 0;
+  balance: any = 0;
+  isFirstPage: any = 1;
+  isLastPage: any = 0;
   constructor(private router: Router,
     private _route: ActivatedRoute,
     private _script: ScriptLoaderService,
@@ -42,8 +45,8 @@ export class MyWalletComponent implements OnInit {
   }
 
   async ngOnInit() {
-    
-  
+
+
     await this.getPrice();
     let scripts = [];
     scripts = [
@@ -57,9 +60,9 @@ export class MyWalletComponent implements OnInit {
 
     this.showObj.wallet_address = await this.apiService.export();
     if (this.showObj.wallet_address && this.showObj.wallet_address != '' && this.showObj.wallet_address != []) {
-      let bal = await window.web3.eth.getBalance( this.showObj.wallet_address);
-      this.balance =(bal/1e18 ) * this.priceInUSD;
-      console.log('------------------bal',bal);
+      let bal = await window.web3.eth.getBalance(this.showObj.wallet_address);
+      this.balance = (bal / 1e18) * this.priceInUSD;
+      console.log('------------------bal', bal);
       if (localStorage.getItem('Authorization') && localStorage.getItem('Authorization') != null) {
       } else {
         //this.toaster.warning('Please Signin / Signup first.', 'Attention!')
@@ -77,17 +80,17 @@ export class MyWalletComponent implements OnInit {
 
   }
 
-  getPrice(){
-    
+  getPrice() {
+
     this.apiService.getPrice().subscribe(async (data: any) => {
 
       if (data['matic-network']) {
         let res = await data['matic-network'].usd;
-        this.priceInUSD =res;
-        console.log('--------------------res',res);
+        this.priceInUSD = res;
+        console.log('--------------------res', res);
         // priceInUSD
       } else {
-        this.priceInUSD =0;
+        this.priceInUSD = 0;
       }
     }, (error) => {
       if (error) {
@@ -102,19 +105,42 @@ export class MyWalletComponent implements OnInit {
   listTransaction(obj: any) {
     this.apiService.listTransaction(obj).subscribe(async (data: any) => {
 
+      if(this.searchData['page'] == 1){
+        this.isFirstPage = 1;
+      }else{
+        this.isFirstPage = 0;
+      }
+      
+
       if (data && data['data']) {
         let res = await data['data'];
         this.filterData = res;
-
-        if (res['data'] && res['data'] != 0 && res['data'].length) {
+        this.recordCount = res['count'];
+        if(this.searchData['page'] == 1){
+          this.isFirstPage = 1;
+        }else{
+          this.isFirstPage = 0;
+        }
+        console.log("res['count']", res['count'], res['count']%5)
+        if(res['count']>=(5*this.searchData['page'])){
+          this.isLastPage = 0;
+        }else{
+          this.isLastPage = 1;
+        }
+        console.log("Data 2" ,res, res['data'].length)
+        if (res['data'] && res['data'] != 0 && res['count'] && res['count'] > 0 ) {
           this.listData = res['data'];
         } else {
           this.filterData = {};
           this.listData = [];
+          this.isFirstPage = 1;
+          this.isLastPage = 1;
         }
       } else {
         this.filterData = {};
         this.listData = [];
+        this.isFirstPage = 1;
+        this.isLastPage = 1;
       }
     }, (error) => {
       if (error) {
@@ -124,15 +150,18 @@ export class MyWalletComponent implements OnInit {
   }
 
   onClickTXHASH(hash) {
-    window.open('https://mumbai.polygonscan.com/tx/'+hash, '_blank').focus();
+    window.open('https://mumbai.polygonscan.com/tx/' + hash, '_blank').focus();
   }
 
-  async onClickLoadMore() {
-    this.searchData['length'] = this.searchData['length'] + 6;
-
+  async onClickLoadMorePrev() {
+    this.searchData['page'] = this.searchData['page'] - 1;
     await this.listTransaction(this.searchData);
   }
-  
+  async onClickLoadMoreNext() {
+    this.searchData['page'] = this.searchData['page'] + 1;
+    await this.listTransaction(this.searchData);
+  }
+
   onClickAdd() {
     let transak = new transakSDK({
       apiKey: 'aa84ba7a-a889-4ca1-8e10-a70f384bbd81', // Your API Key
@@ -155,14 +184,10 @@ export class MyWalletComponent implements OnInit {
     transak.on(transak.ALL_EVENTS, (data) => {
       console.log(data);
     });
-
     // This will trigger when the user marks payment is made.
     transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
       console.log(orderData);
       transak.close();
     });
   }
-
-
-
 }

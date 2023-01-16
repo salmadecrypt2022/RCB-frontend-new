@@ -2724,6 +2724,22 @@ footer .icon-div {
   cursor: pointer;
 }
 
+.my-wallet .latest-transitions .first-block {
+  display: block !important;
+  float: right;
+  width: 100%;
+}
+
+.my-wallet .latest-transitions .first-block a {
+  float: right !important;
+  display: inline-block !important;
+  margin-left: 10px !important;
+}
+
+a.btn-disabled {
+  opacity: .5;
+}
+
 @font-face {
   font-family: 'Air';
   src: url(../fonts/airstrike.ttf);
