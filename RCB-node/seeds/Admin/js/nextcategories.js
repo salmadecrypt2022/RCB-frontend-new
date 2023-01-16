@@ -22,12 +22,28 @@ $(document).ready(async function () {
     $("#btnCreateCat1").on("click", async () => {
         // $('#preloader').addClass(5000);
         // $('#main-wrapper').removeClass('show');
+        if ($("#category_startTime").val() == '') {
+            $("#lblcategory_startTime").text("Please Enter next category Start Time");
+            $("#lblcategory_startTime").removeClass("d-none");
+            return;
+        } else {
+            $("#lblPrice").addClass("d-none");
+        }
 
         console.log("start time is----->",$("#category_startTime").val())
         let dt = $("#category_startTime").val();
         dt=new Date(dt);
         console.log("dt is---->",dt);
-
+        
+        
+        if (dt.getTime() < ct.getTime()) {
+            console.log("true")
+            $('#lblcategory_startTime').html('next category Start Time should be greate than previos time!');
+            $("#lblcategory_startTime").removeClass("d-none");
+            return;
+        }
+        
+      
     //const ct = new Date();
     //console.log("dt  is----->",dt.getTime());
     //console.log(" ct is----->",ct.getTime());
