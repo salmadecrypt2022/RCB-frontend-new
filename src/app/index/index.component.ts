@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import {ignoreElements} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 import { ScriptLoaderService } from '../script-loader.service';
@@ -30,29 +31,24 @@ export class IndexComponent implements OnInit {
 
     // this.id = this._route.snapshot.params['id'];
   }
+  
+  isCategoryActive:any
+  
+  showObj: any = {
+    category_id: 0,
+    price: 0,
+    perAddress: 0,
+    categoryTokencap: 0,
+    category_name: '',
+    status: '',
+    startTime:0
+  };
 
-  date: any;
-  now: any;
+  
   targetDate: any = new Date(2023, 3, 31, 10, 0, 0);
   targetTime: any = this.targetDate.getTime();
 
   difference: number;
-  months: Array<string> = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  currentTime: any = `${this.months[this.targetDate.getMonth()]
-    } ${this.targetDate.getDate()}, ${this.targetDate.getFullYear()}`;
 
   @ViewChild('days', { static: true }) days: ElementRef;
   @ViewChild('hours', { static: true }) hours: ElementRef;
@@ -62,31 +58,10 @@ export class IndexComponent implements OnInit {
 
   ngAfterViewInit() {
     setInterval(() => {
-      this.tickTock();
-      this.difference = this.targetTime - this.now;
-      this.difference = this.difference / (1000 * 60 * 60 * 24);
+      this.countdownTimer(this.targetTime);
     }, 1000);
   }
 
-  tickTock() {
-    this.date = new Date();
-    this.now = this.date.getTime();
-
-    let daysss = Math.floor(this.difference).toString();
-    let hourss = 23 - this.date.getHours();
-    let minutesss = 60 - this.date.getMinutes();
-    let secondsss = 60 - this.date.getSeconds();
-    if(daysss !== undefined && daysss !== "NaN"){
-      this.days.nativeElement.innerText = daysss;
-      // this.days.nativeElement.innerText = "--";
-    }else{
-      this.days.nativeElement.innerText = "--";
-    }
-    
-    this.hours.nativeElement.innerText = hourss.toString().padStart(2, '0');
-    this.minutes.nativeElement.innerText = minutesss.toString().padStart(2, '0');
-    this.seconds.nativeElement.innerText = secondsss.toString().padStart(2, '0');
-  }
 
   val: any = '';
   async ngOnInit() {
@@ -107,13 +82,80 @@ export class IndexComponent implements OnInit {
 
     })
 
+    await this.getActiveCategory();
 
     await this.getOwners();
+    
+   
 
+  }
+  
+ async getActiveCategory() {
+
+    console.log("active category is called");
+    this.apiService.getActiveCategory().subscribe(async(res: any) => {
+      if (res && res['data']) {
+        let categoryData = res['data'];
+        categoryData = categoryData['data'];
+        console.log('------------------------categoryData', categoryData, categoryData.starttime);
+
+
+        this.showObj = {
+          category_id: categoryData.category_id ? categoryData.category_id : 0,
+          price: categoryData.sPrice ? categoryData.sPrice : 0,
+          perAddress: categoryData.maxPerAddress ? categoryData.maxPerAddress : 0,
+          categoryTokencap: categoryData.categoryTokencap ? categoryData.categoryTokencap : 0,
+          wallet_address: this.showObj.wallet_address,
+          category_name: categoryData.category_name ? categoryData.category_name : 0,
+          status: categoryData.status ? categoryData.status : 0,
+          startTime: categoryData.starttime ? categoryData.starttime : 0
+        };
+        
+        const ct = new Date();
+    
+        console.log(" ct is----->",ct.getTime(), this.showObj.startTime);
+   
+          //this.targetDate = new Date(this.showObj.startTime/1)
+          let d = new Date(0);
+          d.setUTCSeconds(this.showObj.startTime/1000)
+          this.targetDate = d;
+          this.targetTime = this.targetDate.getTime();
+          console.log("category is active",d, this.targetDate.getTime())
+          console.log("end  time is",this.targetTime);
+          //await this.countdownTimer(currenTimeStamp,this.targetTime)
+          var time_left = this.difference / 1000;
+          console.log("time left is------>",time_left);
+      }
+    }, (err: any) => {
+
+    });
+  }
+  
+  //async countdownTimer(startTime:any,endTime:any) {
+  async countdownTimer(endTime:any) {
+    var date = new Date();
+    var startTime = date.getTime()
+    const difference =  endTime-startTime;
+    let remaining = "Time's up!";
+    console.log("difference is sdfsff----->",difference);
+  
+    if (difference > 0) {
+    
+       var dayss=Math.floor(difference / (1000 * 60 * 60 * 24));
+       var hourss=Math.floor((difference / (1000 * 60 * 60)) % 24);
+       var minutess=Math.floor((difference / 1000 / 60) % 60);
+       var secondss= Math.floor((difference / 1000) % 60);
+       console.log("housr mintus and seconds are",hourss,minutess,secondss);
+        this.days.nativeElement.innerText = dayss;
+        this.hours.nativeElement.innerText = hourss.toString().padStart(2, '0');
+        this.minutes.nativeElement.innerText = minutess.toString().padStart(2, '0');
+        this.seconds.nativeElement.innerText = secondss.toString().padStart(2, '0');
+      }else{
+        this.isCategoryActive=true;
+      }
   }
 
   async getOwners() {
-
 
   }
 

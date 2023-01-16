@@ -115,6 +115,21 @@ $(document).ready(async function () {
         // $('#preloader').addClass(5000);
         // $('#main-wrapper').removeClass('show');
 
+        console.log("start time is----->",$("#category_startTime").val())
+        let dt = $("#category_startTime").val();
+        dt=new Date(dt);
+
+    const ct = new Date();
+    console.log("dt  is----->",dt.getTime());
+    console.log(" ct is----->",ct.getTime());
+
+    if (dt.getTime() < ct.getTime()) {
+        console.log("true")
+        $('#lblcategory_startTime').html('Start time should be greate than previos time!');
+        $("#lblcategory_startTime").removeClass("d-none");
+        return;
+    }
+        
         if (!(await ethereum._metamask.isUnlocked())) {
             $('#lblAmountError').html('MetaMask Is Locked, Please Unlock It & Reload The Page To Connect!');
             $("#lblAmountError").removeClass("d-none");
@@ -203,7 +218,7 @@ $(document).ready(async function () {
         } else {
             $("#lblCategoryTokencap").addClass("d-none");
         }
-
+        //category_startTime
         if ($("#sPrice").val() <= 0) {
             $("#lblPrice").text("Please Enter Value greater than 0");
             $("#lblPrice").removeClass("d-none");
@@ -233,7 +248,7 @@ $(document).ready(async function () {
         var oContract = new web3.eth.Contract(abi, mainContractAddress)
 
         let obj = {
-            starttime: parseInt(d),
+            starttime: dt.getTime(),
             endtime: 1920002931,
             maxPerAddress: $("#maxPerAddress").val(),
             categoryTokencap: $("#categoryTokencap").val(),
