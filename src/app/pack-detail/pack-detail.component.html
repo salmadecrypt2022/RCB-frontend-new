@@ -216,7 +216,9 @@
         <div class="form-group position-relative">
           <p>Quantity</p>
           <input
-            type="number"
+            type="text"
+            step="1"
+            appZeroDigitDecimaNumber
             placeholder="Enter your quantity"
             [ngClass]="{
               'is-invalid': submitted1 && buyForm.controls.quantity.errors
